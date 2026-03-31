@@ -62,7 +62,7 @@ const ApiKeyAuth = ({ item, collection, updateAuth, request, save }) => {
 
   return (
     <StyledWrapper className="w-full">
-      <label className="block mb-1">Key</label>
+      <label className="block mb-1">键</label>
       <div className="single-line-editor-wrapper mb-3">
         <SingleLineEditor
           value={apikeyAuth.key || ''}
@@ -75,7 +75,7 @@ const ApiKeyAuth = ({ item, collection, updateAuth, request, save }) => {
         />
       </div>
 
-      <label className="block mb-1">Value</label>
+      <label className="block mb-1">值</label>
       <div className="single-line-editor-wrapper mb-3">
         <SingleLineEditor
           value={apikeyAuth.value || ''}
@@ -88,7 +88,7 @@ const ApiKeyAuth = ({ item, collection, updateAuth, request, save }) => {
         />
       </div>
 
-      <label className="block mb-1">Add To</label>
+      <label className="block mb-1">添加到</label>
       <div className="inline-flex items-center cursor-pointer auth-placement-selector w-fit">
         <Dropdown onCreate={onDropdownCreate} icon={<Icon />} placement="bottom-end">
           <div
@@ -107,7 +107,7 @@ const ApiKeyAuth = ({ item, collection, updateAuth, request, save }) => {
               handleAuthChange('placement', 'queryparams');
             }}
           >
-            Query Param
+            Query 参数
           </div>
         </Dropdown>
       </div>

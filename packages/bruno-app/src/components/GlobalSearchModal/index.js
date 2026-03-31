@@ -370,15 +370,15 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
         aria-describedby="search-modal-description"
       >
         <div className="command-k-modal" onClick={(e) => e.stopPropagation()}>
-          <h1 id="search-modal-title" className="sr-only">Global Search</h1>
+          <h1 id="search-modal-title" className="sr-only">全局搜索</h1>
           <p id="search-modal-description" className="sr-only">
-            Search through collections, requests, folders, and documentation. Use arrow keys to navigate results and Enter to select.
+            搜索 Collection、Request、Folder 和文档。使用方向键导航结果，Enter 键选择。
           </p>
           <div aria-live="polite" aria-atomic="true" className="sr-only">
             {results.length > 0 && query
-              ? `${results.length} result${results.length === 1 ? '' : 's'} found`
+              ? `找到 ${results.length} 个结果`
               : query && results.length === 0
-                ? 'No results found'
+                ? '未找到结果'
                 : ''}
           </div>
           <div className="command-k-header">
@@ -387,7 +387,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="Search collections, requests, or documentation..."
+                placeholder="搜索 Collection、Request 或文档..."
                 value={query}
                 onChange={handleQueryChange}
                 onKeyDown={handleKeyNavigation}
@@ -396,7 +396,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
                 autoCorrect="off"
                 autoCapitalize="off"
                 spellCheck="false"
-                aria-label="Search collections, requests, or documentation"
+                aria-label="搜索 Collection、Request 或文档"
                 aria-expanded={results.length > 0}
                 aria-controls="search-results"
                 aria-activedescendant={results.length > 0 ? `search-result-${selectedIndex}` : undefined}
@@ -407,7 +407,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
                 <button
                   onClick={clearSearch}
                   className="clear-button"
-                  aria-label="Clear search query"
+                  aria-label="清除搜索内容"
                   type="button"
                 >
                   <IconX size={16} aria-hidden="true" />
@@ -421,25 +421,25 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
             ref={resultsRef}
             id="search-results"
             role="listbox"
-            aria-label="Search results"
+            aria-label="搜索结果"
           >
             {results.length === 0 && query ? (
               <div className="no-results">
                 <p>
-                  No results found for "{query}".
+                  未找到 "{query}" 的相关结果。
                   <br />
                   <span className="block mt-2">
-                    The item might not exist yet, or its collection isn’t mounted. Press <strong>Enter</strong> here (or open it from the sidebar) to mount the collection automatically.
+                    该项目可能尚未存在，或其 Collection 未挂载。在此按 <strong>Enter</strong>（或从侧边栏打开）可自动挂载 Collection。
                   </span>
                 </p>
               </div>
             ) : results.length === 0 ? (
               <div className="empty-state">
                 <p>
-                  No collections are currently mounted or visible.
+                  当前没有已挂载或可见的 Collection。
                   <br />
                   <span className="block mt-2">
-                    Mount a collection via the sidebar or this search modal, then try again.
+                    通过侧边栏或此搜索弹窗挂载 Collection，然后重试。
                   </span>
                 </p>
               </div>
@@ -500,19 +500,19 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
           </div>
 
           <div className="command-k-footer">
-            <div className="keyboard-hints" role="region" aria-label="Keyboard shortcuts">
-              <span aria-label="Use up and down arrows to navigate">
+            <div className="keyboard-hints" role="region" aria-label="键盘快捷键">
+              <span aria-label="使用上下方向键导航">
                 <span className="keycap" aria-hidden="true">↑</span>
                 <span className="keycap" aria-hidden="true">↓</span>
-                <span className="hint-label">to navigate</span>
+                <span className="hint-label">导航</span>
               </span>
-              <span aria-label="Press Enter to select">
+              <span aria-label="按 Enter 选择">
                 <span className="keycap" aria-hidden="true">↵</span>
-                <span className="hint-label">to select</span>
+                <span className="hint-label">选择</span>
               </span>
-              <span aria-label="Press Escape to close">
+              <span aria-label="按 Escape 关闭">
                 <span className="keycap" aria-hidden="true">esc</span>
-                <span className="hint-label">to close</span>
+                <span className="hint-label">关闭</span>
               </span>
             </div>
           </div>

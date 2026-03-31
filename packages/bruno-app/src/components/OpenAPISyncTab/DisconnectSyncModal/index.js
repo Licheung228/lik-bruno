@@ -5,21 +5,21 @@ const DisconnectSyncModal = ({ onConfirm, onClose }) => {
   return (
     <Modal
       size="sm"
-      title="Disconnect Sync"
+      title="断开同步"
       hideFooter={true}
       handleCancel={onClose}
     >
       <div className="disconnect-modal">
         <p className="disconnect-message">
-          <>Are you sure you want to disconnect OpenAPI sync? </> <br /> <br />
-          <>This will only disconnect the sync configuration. Your collection will remain intact.</>
+          <>确定要断开 OpenAPI 同步吗？ </> <br /> <br />
+          <>此操作仅断开同步配置，你的 Collection 将保持不变。</>
         </p>
         <div className="disconnect-actions">
           <Button variant="ghost" color="secondary" onClick={onClose}>
-            Cancel
+            取消
           </Button>
           <Button color="danger" onClick={onConfirm}>
-            Disconnect
+            断开
           </Button>
         </div>
       </div>

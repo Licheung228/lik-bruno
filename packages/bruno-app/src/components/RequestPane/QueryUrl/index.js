@@ -81,7 +81,7 @@ const QueryUrl = ({ item, collection, handleRun }) => {
     if (item?.request?.url !== '' || (item.draft?.request?.url !== undefined && item.draft?.request?.url !== '')) {
       setGenerateCodeItemModalOpen(true);
     } else {
-      toast.error('URL is required');
+      toast.error('URL 是必填项');
     }
   };
 
@@ -102,7 +102,7 @@ const QueryUrl = ({ item, collection, handleRun }) => {
     try {
       const request = getRequestFromCurlCommand(pastedData, 'graphql-request');
       if (!request || !request.url) {
-        toast.error('Invalid cURL command');
+        toast.error('无效的 cURL 命令');
         return;
       }
       // Update URL
@@ -150,11 +150,11 @@ const QueryUrl = ({ item, collection, handleRun }) => {
           }));
         }
 
-        toast.success('GraphQL query imported successfully');
+        toast.success('GraphQL 查询导入成功');
       }
     } catch (error) {
       console.error('Error parsing cURL command:', error);
-      toast.error('Failed to parse GraphQL query');
+      toast.error('解析 GraphQL 查询失败');
     }
   }, [dispatch, item.uid, collection.uid]);
 
@@ -181,7 +181,7 @@ const QueryUrl = ({ item, collection, handleRun }) => {
       // Parse the curl command
       const request = getRequestFromCurlCommand(pastedData);
       if (!request || !request.url) {
-        toast.error('Invalid cURL command');
+        toast.error('无效的 cURL 命令');
         return;
       }
 
@@ -355,10 +355,10 @@ const QueryUrl = ({ item, collection, handleRun }) => {
         }
       }
 
-      toast.success('cURL command imported successfully');
+      toast.success('cURL 命令导入成功');
     } catch (error) {
       console.error('Error parsing cURL command:', error);
-      toast.error('Failed to parse cURL command');
+      toast.error('解析 cURL 命令失败');
     }
   },
   [dispatch, item.uid, item.type, collection.uid]
@@ -380,7 +380,7 @@ const QueryUrl = ({ item, collection, handleRun }) => {
         <SingleLineEditor
           ref={editorRef}
           value={url}
-          placeholder="Enter URL or paste a cURL request"
+          placeholder="输入 URL 或粘贴 cURL 请求"
           onSave={(finalValue) => onSave(finalValue)}
           theme={storedTheme}
           onChange={(newValue) => onUrlChange(newValue)}
@@ -395,17 +395,17 @@ const QueryUrl = ({ item, collection, handleRun }) => {
       </div>
       <div className="flex items-center h-full mx-2 gap-3 cursor-pointer" id="send-request" onClick={handleRun}>
         <div
-          title="Generate Code"
+          title="生成代码"
           className="infotip"
           onClick={(e) => {
             handleGenerateCode(e);
           }}
         >
           <IconCode color={theme.requestTabs.icon.color} strokeWidth={1.5} size={20} className="cursor-pointer" />
-          <span className="infotiptext text-xs">Generate Code</span>
+          <span className="infotiptext text-xs">生成代码</span>
         </div>
         <div
-          title="Save Request"
+          title="保存 Request"
           className="infotip"
           onClick={(e) => {
             e.stopPropagation();
@@ -420,7 +420,7 @@ const QueryUrl = ({ item, collection, handleRun }) => {
             className={`${hasChanges ? 'cursor-pointer' : 'cursor-default'}`}
           />
           <span className="infotiptext text-xs">
-            Save <span className="shortcut">({saveShortcut})</span>
+            保存 <span className="shortcut">({saveShortcut})</span>
           </span>
         </div>
         {isLoading || item.response?.stream?.running ? (

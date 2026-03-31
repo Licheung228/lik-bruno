@@ -56,13 +56,13 @@ const Oauth2ActionButtons = ({ item, request, collection, url: accessTokenUrl, c
 
       // Check if the result contains error or if access_token is missing
       if (!result || !result.access_token) {
-        const errorMessage = result?.error || 'No access token received from authorization server';
+        const errorMessage = result?.error || '未从授权服务器获取到 access token';
         console.error(errorMessage);
         toast.error(errorMessage);
         return;
       }
 
-      toast.success('Token fetched successfully!');
+      toast.success('Token 获取成功！');
     } catch (error) {
       console.error('could not fetch the token!');
       console.error(error);
@@ -70,7 +70,7 @@ const Oauth2ActionButtons = ({ item, request, collection, url: accessTokenUrl, c
       if (error?.message && error.message.includes('cancelled by user')) {
         return;
       }
-      toast.error(error?.message || 'An error occurred while fetching token!');
+      toast.error(error?.message || '获取 Token 时发生错误！');
     } finally {
       toggleFetchingToken(false);
       toggleFetchingAuthorizationCode(false);
@@ -94,24 +94,24 @@ const Oauth2ActionButtons = ({ item, request, collection, url: accessTokenUrl, c
 
       // Check if the result contains error or if access_token is missing
       if (!result || !result.access_token) {
-        const errorMessage = result?.error || 'No access token received from authorization server';
+        const errorMessage = result?.error || '未从授权服务器获取到 access token';
         console.error(errorMessage);
         toast.error(errorMessage);
         return;
       }
 
-      toast.success('Token refreshed successfully!');
+      toast.success('Token 刷新成功！');
     } catch (error) {
       console.error(error);
       toggleRefreshingToken(false);
-      toast.error(error?.message || 'An error occurred while refreshing token!');
+      toast.error(error?.message || '刷新 Token 时发生错误！');
     }
   };
 
   const handleClearCache = (e) => {
     dispatch(clearOauth2Cache({ collectionUid: collection?.uid, url: interpolatedAccessTokenUrl, credentialsId }))
       .then(() => {
-        toast.success('Cleared cache successfully');
+        toast.success('缓存清除成功');
       })
       .catch((err) => {
         toast.error(err.message);
@@ -122,13 +122,13 @@ const Oauth2ActionButtons = ({ item, request, collection, url: accessTokenUrl, c
     try {
       const result = await dispatch(cancelOauth2AuthorizationRequest());
       if (result.success && result.cancelled) {
-        toast.error('Authorization cancelled');
+        toast.error('授权已取消');
         toggleFetchingToken(false);
         toggleFetchingAuthorizationCode(false);
       }
     } catch (err) {
       console.error('Error cancelling authorization:', err);
-      toast.error('Failed to cancel authorization');
+      toast.error('取消授权失败');
     }
   };
 
@@ -141,7 +141,7 @@ const Oauth2ActionButtons = ({ item, request, collection, url: accessTokenUrl, c
         disabled={fetchingToken || refreshingToken}
         loading={fetchingToken}
       >
-        Get Access Token
+        获取 Access Token
       </Button>
       {creds?.refresh_token
         ? (
@@ -152,7 +152,7 @@ const Oauth2ActionButtons = ({ item, request, collection, url: accessTokenUrl, c
               disabled={fetchingToken || refreshingToken}
               loading={refreshingToken}
             >
-              Refresh Token
+              刷新 Token
             </Button>
           )
         : null}
@@ -165,7 +165,7 @@ const Oauth2ActionButtons = ({ item, request, collection, url: accessTokenUrl, c
               icon={<IconX size={16} />}
               iconPosition="left"
             >
-              Cancel Authorization
+              取消授权
             </Button>
           ) : null}
       <Button
@@ -174,7 +174,7 @@ const Oauth2ActionButtons = ({ item, request, collection, url: accessTokenUrl, c
         variant="ghost"
         onClick={handleClearCache}
       >
-        Clear Cache
+        清除缓存
       </Button>
     </div>
   );

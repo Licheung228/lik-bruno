@@ -79,17 +79,17 @@ const Notifications = () => {
 
   const modalCustomHeader = (
     <div className="flex flex-row gap-8">
-      <div className="bruno-modal-header-title">NOTIFICATIONS</div>
+      <div className="bruno-modal-header-title">通知</div>
       {unreadNotifications.length > 0 && (
         <>
           <div className="normal-case font-normal">
-            {unreadNotifications.length} <span>unread notifications</span>
+            {unreadNotifications.length} <span>条未读通知</span>
           </div>
           <button
             className={`select-none ${1 == 2 ? 'opacity-50' : 'text-link mark-as-read cursor-pointer hover:underline'}`}
             onClick={() => dispatch(markAllNotificationsAsRead())}
           >
-            Mark all as read
+            全部标记为已读
           </button>
         </>
       )}
@@ -106,9 +106,9 @@ const Notifications = () => {
           }));
           setShowNotificationsModal(true);
         }}
-        aria-label="Check all Notifications"
+        aria-label="查看所有通知"
       >
-        <ToolHint text="Notifications" toolhintId="Notifications" offset={8}>
+        <ToolHint text="通知" toolhintId="Notifications" offset={8}>
           <IconBell
             size={16}
             aria-hidden
@@ -125,8 +125,8 @@ const Notifications = () => {
         <Portal>
           <Modal
             size="lg"
-            title="Notifications"
-            confirmText="Close"
+            title="通知"
+            confirmText="关闭"
             handleConfirm={() => {
               setShowNotificationsModal(false);
             }}
@@ -166,17 +166,18 @@ const Notifications = () => {
                         }`}
                         onClick={handlePrev}
                       >
-                        Prev
+                        上一页
                       </button>
                       <div className="flex flex-row items-center justify-center gap-1">
-                        Page
+                        第
                         <div className="w-[20px] flex justify-center" style={{ width: '20px' }}>
                           {pageNumber}
                         </div>
-                        of
+                        页，共
                         <div className="w-[20px] flex justify-center" style={{ width: '20px' }}>
                           {totalPages}
                         </div>
+                        页
                       </div>
                       <button
                         className={`pl-2 pr-2 py-3 select-none ${
@@ -184,7 +185,7 @@ const Notifications = () => {
                         }`}
                         onClick={handleNext}
                       >
-                        Next
+                        下一页
                       </button>
                     </div>
                   </div>
@@ -202,7 +203,7 @@ const Notifications = () => {
                   </div>
                 </div>
               ) : (
-                <div className="opacity-50 italic text-xs p-12 flex justify-center">You are all caught up!</div>
+                <div className="opacity-50 italic text-xs p-12 flex justify-center">你已查看所有通知！</div>
               )}
             </div>
           </Modal>

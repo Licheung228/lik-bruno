@@ -17,12 +17,12 @@ import { transparentize, toColorString, parseToRgb } from 'polished';
 
 const TABS = [
   { id: 'collection', label: 'Collection', icon: <IconDatabase size={16} strokeWidth={1.5} /> },
-  { id: 'global', label: 'Global', icon: <IconWorld size={16} strokeWidth={1.5} /> }
+  { id: 'global', label: '全局', icon: <IconWorld size={16} strokeWidth={1.5} /> }
 ];
 
 const EMPTY_STATE_DESCRIPTIONS = {
-  collection: 'Create your first environment to begin working with your collection.',
-  global: 'Create your first global environment to begin working across collections.'
+  collection: '创建第一个 Environment 以开始使用您的 Collection。',
+  global: '创建第一个全局 Environment 以跨 Collection 工作。'
 };
 
 /**
@@ -109,7 +109,7 @@ const DropdownTrigger = forwardRef(({ collectionEnv, globalEnv }, ref) => {
         className="current-environment flex align-center justify-center cursor-pointer bg-transparent no-environments"
         data-testid="environment-selector-trigger"
       >
-        <span className="env-text-inactive max-w-36 truncate no-wrap">No Environment</span>
+        <span className="env-text-inactive max-w-36 truncate no-wrap">无 Environment</span>
         <IconCaretDown className="caret flex items-center justify-center" size={12} strokeWidth={2} />
       </div>
     );
@@ -212,11 +212,11 @@ const EnvironmentSelector = ({ collection }) => {
 
     dispatch(action)
       .then(() => {
-        toast.success(environment ? `Environment changed to ${environment.name}` : 'No Environments are active now');
+        toast.success(environment ? `Environment 已切换为 ${environment.name}` : '当前无激活的 Environment');
         hideDropdown();
       })
       .catch(() => {
-        toast.error('An error occurred while selecting the environment');
+        toast.error('选择 Environment 时发生错误');
       });
   };
 

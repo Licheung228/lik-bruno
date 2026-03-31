@@ -18,17 +18,17 @@ const RenameCollection = ({ collectionUid, onClose }) => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .min(1, 'must be at least 1 character')
-        .required('name is required')
+        .min(1, '至少需要 1 个字符')
+        .required('名称必填')
     }),
     onSubmit: (values) => {
       dispatch(renameCollection(values.name, collection.uid))
         .then(() => {
-          toast.success('Collection renamed!');
+          toast.success('Collection 已重命名！');
           onClose();
         })
         .catch((err) => {
-          toast.error(err ? err.message : 'An error occurred while renaming the collection');
+          toast.error(err ? err.message : '重命名 Collection 时发生错误');
         });
     }
   });
@@ -42,11 +42,11 @@ const RenameCollection = ({ collectionUid, onClose }) => {
   const onSubmit = () => formik.handleSubmit();
 
   return (
-    <Modal size="md" title="Rename Collection" confirmText="Rename" handleConfirm={onSubmit} handleCancel={onClose}>
+    <Modal size="md" title="重命名 Collection" confirmText="重命名" handleConfirm={onSubmit} handleCancel={onClose}>
       <form className="bruno-form" onSubmit={(e) => e.preventDefault()}>
         <div>
           <label htmlFor="name" className="block font-medium">
-            Name
+            名称
           </label>
           <input
             id="collection-name"

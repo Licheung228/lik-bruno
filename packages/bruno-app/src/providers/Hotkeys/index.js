@@ -84,11 +84,11 @@ export const HotkeysProvider = (props) => {
             if (item.type === 'grpc-request') {
               const request = item.draft ? item.draft.request : item.request;
               if (!request.url) {
-                toast.error('Please enter a valid gRPC server URL');
+                toast.error('请输入有效的 gRPC 服务器 URL');
                 return;
               }
               if (!request.method) {
-                toast.error('Please select a gRPC method');
+                toast.error('请选择一个 gRPC 方法');
                 return;
               }
             }

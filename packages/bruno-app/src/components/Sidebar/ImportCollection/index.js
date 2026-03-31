@@ -39,7 +39,7 @@ const ImportCollection = ({ onClose, handleSubmit }) => {
   return (
     <Modal
       size="md"
-      title="Import Collection"
+      title="导入 Collection"
       hideFooter={true}
       handleCancel={onClose}
       dataTestId="import-collection-modal"
@@ -57,7 +57,7 @@ const ImportCollection = ({ onClose, handleSubmit }) => {
                 strokeWidth={1.5}
                 className="mr-2"
               />
-              File
+              文件
             </div>
             <div
               className={getTabClassname(IMPORT_TABS.GITHUB)}

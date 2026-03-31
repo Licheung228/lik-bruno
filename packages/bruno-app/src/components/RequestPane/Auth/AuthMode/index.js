@@ -69,12 +69,12 @@ const AuthMode = ({ item, collection }) => {
     },
     {
       id: 'inherit',
-      label: 'Inherit',
+      label: '继承',
       onClick: () => onModeChange('inherit')
     },
     {
       id: 'none',
-      label: 'No Auth',
+      label: '无认证',
       onClick: () => onModeChange('none')
     }
   ], [onModeChange]);

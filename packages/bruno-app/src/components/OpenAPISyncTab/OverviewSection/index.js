@@ -13,28 +13,28 @@ const capitalize = (str) => str ? str.charAt(0).toUpperCase() + str.slice(1) : s
 const SUMMARY_CARDS = [
   {
     key: 'total',
-    label: 'Total in Collection',
+    label: 'Collection 总数',
     color: 'blue',
-    tooltip: 'Total endpoints in your collection'
+    tooltip: 'Collection 中的 endpoint 总数'
   },
   {
     key: 'inSync',
-    label: 'In Sync with Spec',
+    label: '与 Spec 同步',
     color: 'green',
-    tooltip: 'Endpoints that currently match the latest spec from the source'
+    tooltip: '当前与最新 Spec 匹配的 endpoint'
   },
   {
     key: 'changed',
-    label: 'Changed in Collection',
+    label: 'Collection 中已变更',
     color: 'muted',
-    tooltip: 'Endpoints modified, deleted, or added locally since last sync',
+    tooltip: '自上次同步后本地修改、删除或添加的 endpoint',
     tab: 'collection-changes'
   },
   {
     key: 'pending',
-    label: 'Spec Updates Pending',
+    label: '待同步的 Spec 更新',
     color: 'amber',
-    tooltip: 'Spec changes available to sync to your collection',
+    tooltip: 'Spec 中可供同步到 Collection 的变更',
     tab: 'spec-updates'
   }
 ];
@@ -88,11 +88,11 @@ const OverviewSection = ({ collection, storedSpec, collectionDrift, specDrift, r
   };
 
   const details = [
-    { label: 'Spec Version', value: version ? `v${version}` : '–' },
-    { label: 'Endpoints in Spec', value: endpointCount != null ? endpointCount : '–' },
-    { label: 'Last Synced At', value: lastSyncDate ? moment(lastSyncDate).fromNow() : '–', tooltip: lastSyncDate ? moment(lastSyncDate).format('MMMM D, YYYY [at] h:mm A') : undefined },
-    { label: 'Folder Grouping', value: capitalize(groupBy) },
-    { label: 'Auto Check for Updates', value: autoCheckEnabled ? `Every ${autoCheckInterval} min` : 'Disabled' }
+    { label: 'Spec 版本', value: version ? `v${version}` : '–' },
+    { label: 'Spec 中的 Endpoint 数', value: endpointCount != null ? endpointCount : '–' },
+    { label: '上次同步时间', value: lastSyncDate ? moment(lastSyncDate).fromNow() : '–', tooltip: lastSyncDate ? moment(lastSyncDate).format('MMMM D, YYYY [at] h:mm A') : undefined },
+    { label: '文件夹分组方式', value: capitalize(groupBy) },
+    { label: '自动检查更新', value: autoCheckEnabled ? `每 ${autoCheckInterval} 分钟` : '已禁用' }
   ];
 
   const hasCollectionChanges = changedInCollection > 0;
@@ -106,7 +106,7 @@ const OverviewSection = ({ collection, storedSpec, collectionDrift, specDrift, r
     if (activeError) {
       return {
         variant: 'danger',
-        title: 'Failed to check for spec updates',
+        title: '检查 Spec 更新失败',
         subtitle: activeError,
         buttons: ['open-settings']
       };
@@ -114,32 +114,32 @@ const OverviewSection = ({ collection, storedSpec, collectionDrift, specDrift, r
     if (specDrift?.storedSpecMissing && !lastSyncDate) {
       return {
         variant: 'warning',
-        title: 'Initial sync required — your collection differs from the spec',
-        subtitle: 'Review the changes and sync to bring your collection up to date.',
+        title: '需要初始同步 — 你的 Collection 与 Spec 不同',
+        subtitle: '审查变更并同步以更新你的 Collection。',
         buttons: ['review']
       };
     }
     if (hasSpecUpdates && hasCollectionChanges) {
       return {
         variant: 'warning',
-        title: `OpenAPI spec has new updates${versionInfo} and the collection has changes`,
-        subtitle: 'New or changed requests are available. Some collection changes may be overwritten.',
+        title: `OpenAPI spec 有新更新${versionInfo}，且 Collection 有变更`,
+        subtitle: '有新增或修改的请求可用。部分 Collection 变更可能会被覆盖。',
         buttons: ['sync', 'changes']
       };
     }
     if (hasSpecUpdates) {
       return {
         variant: 'warning',
-        title: `OpenAPI spec has new updates${versionInfo}`,
-        subtitle: 'New or changed requests are available.',
+        title: `OpenAPI spec 有新更新${versionInfo}`,
+        subtitle: '有新增或修改的请求可用。',
         buttons: ['sync']
       };
     }
     if (specDrift?.storedSpecMissing && lastSyncDate) {
       return {
         variant: 'warning',
-        title: 'Last synced spec not found',
-        subtitle: 'The last synced spec is missing in the storage. Restore the latest spec from the source to track collection changes.',
+        title: '上次同步的 Spec 未找到',
+        subtitle: '存储中缺少上次同步的 Spec。从源恢复最新 Spec 以追踪 Collection 变更。',
         buttons: ['spec-details']
       };
     }
@@ -147,8 +147,8 @@ const OverviewSection = ({ collection, storedSpec, collectionDrift, specDrift, r
     if (hasCollectionChanges) {
       return {
         variant: 'muted',
-        title: 'Collection has changes not in the spec',
-        subtitle: 'Some requests have been modified or removed and no longer match the spec.',
+        title: 'Collection 有 Spec 中不存在的变更',
+        subtitle: '部分请求已被修改或删除，不再与 Spec 匹配。',
         buttons: ['changes']
       };
     }
@@ -179,22 +179,22 @@ const OverviewSection = ({ collection, storedSpec, collectionDrift, specDrift, r
                   color={bannerState.buttons.includes('sync') ? 'secondary' : 'primary'}
                   onClick={() => onTabSelect('collection-changes')}
                 >
-                  View Collection Changes
+                  查看 Collection 变更
                 </Button>
               )}
               {(bannerState.buttons.includes('sync') || bannerState.buttons.includes('review')) && (
                 <Button size="sm" onClick={() => onTabSelect('spec-updates')}>
-                  Review and Sync Collection
+                  审查并同步 Collection
                 </Button>
               )}
               {bannerState.buttons.includes('spec-details') && (
                 <Button variant="outline" size="sm" onClick={() => onTabSelect('spec-updates')}>
-                  Go to Spec Updates
+                  前往 Spec 更新
                 </Button>
               )}
               {bannerState.buttons.includes('open-settings') && (
                 <Button variant="outline" size="sm" onClick={onOpenSettings}>
-                  Update connection settings
+                  更新连接设置
                 </Button>
               )}
             </div>
@@ -202,7 +202,7 @@ const OverviewSection = ({ collection, storedSpec, collectionDrift, specDrift, r
         </div>
       )}
 
-      <h4 className="overview-section-title mt-5">Endpoint Summary</h4>
+      <h4 className="overview-section-title mt-5">Endpoint 概览</h4>
       <div className="sync-summary-cards">
         {SUMMARY_CARDS.map(({ key, label, tooltip, tab, color }) => {
           const count = summaryValues[key];
@@ -220,7 +220,7 @@ const OverviewSection = ({ collection, storedSpec, collectionDrift, specDrift, r
               <div className="summary-count-row">
                 <span className={`summary-count ${resolvedColor}`}>{count != null ? count : '–'}</span>
                 {key === 'pending' && conflictCount > 0 && (
-                  <span className="conflict-annotation">({conflictCount} {conflictCount === 1 ? 'conflict' : 'conflicts'})</span>
+                  <span className="conflict-annotation">({conflictCount} {conflictCount === 1 ? '冲突' : '个冲突'})</span>
                 )}
               </div>
               <div className="summary-label">
@@ -231,7 +231,7 @@ const OverviewSection = ({ collection, storedSpec, collectionDrift, specDrift, r
         })}
       </div>
 
-      <h4 className="overview-section-title mt-7">Last Synced Spec Details</h4>
+      <h4 className="overview-section-title mt-7">上次同步的 Spec 详情</h4>
       <div className="spec-details-grid">
         {details.map(({ label, value, tooltip }) => (
           <div className="spec-detail-item" key={label}>

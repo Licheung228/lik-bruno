@@ -115,8 +115,8 @@ const openAPIDiffSections = [
 const EndpointVisualDiff = ({
   oldData,
   newData,
-  leftLabel = 'Current (in collection)',
-  rightLabel = 'Expected (from spec)',
+  leftLabel = '当前（Collection 中）',
+  rightLabel = '期望（来自 Spec）',
   swapSides = false
 }) => {
   const sections = openAPIDiffSections;

@@ -64,7 +64,7 @@ export const sortResults = (results) => {
 
 export const getTypeLabel = (type) => {
   const baseLabels = {
-    [SEARCH_TYPES.DOCUMENTATION]: 'Documentation',
+    [SEARCH_TYPES.DOCUMENTATION]: '文档',
     [SEARCH_TYPES.COLLECTION]: 'Collection',
     [SEARCH_TYPES.FOLDER]: 'Folder'
   };

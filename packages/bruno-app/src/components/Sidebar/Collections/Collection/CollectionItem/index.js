@@ -300,19 +300,19 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
         {
           id: 'new-request',
           leftSection: IconFilePlus,
-          label: 'New Request',
+          label: '新建 Request',
           onClick: () => setNewRequestModalOpen(true)
         },
         {
           id: 'new-folder',
           leftSection: IconFolderPlus,
-          label: 'New Folder',
+          label: '新建 Folder',
           onClick: () => setNewFolderModalOpen(true)
         },
         {
           id: 'run',
           leftSection: IconPlayerPlay,
-          label: 'Run',
+          label: '运行',
           onClick: () => setRunCollectionModalOpen(true)
         }
       );
@@ -322,13 +322,13 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
       {
         id: 'clone',
         leftSection: IconCopy,
-        label: 'Clone',
+        label: '克隆',
         onClick: () => setCloneItemModalOpen(true)
       },
       {
         id: 'copy',
         leftSection: IconCopy,
-        label: 'Copy',
+        label: '复制',
         onClick: handleCopyItem
       }
     );
@@ -337,7 +337,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
       items.push({
         id: 'paste',
         leftSection: IconClipboard,
-        label: 'Paste',
+        label: '粘贴',
         onClick: handlePasteItem
       });
     }
@@ -346,7 +346,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
       {
         id: 'rename',
         leftSection: IconEdit,
-        label: 'Rename',
+        label: '重命名',
         onClick: () => setRenameItemModalOpen(true)
       }
     );
@@ -354,7 +354,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
       items.push({
         id: 'run',
         leftSection: IconPlayerPlay,
-        label: 'Run',
+        label: '运行',
         onClick: () => {
           handleRun();
         }
@@ -365,7 +365,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
       items.push({
         id: 'generate-code',
         leftSection: IconCode,
-        label: 'Generate Code',
+        label: '生成代码',
         onClick: handleGenerateCode
       });
     }
@@ -374,7 +374,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
       items.push({
         id: 'create-example',
         leftSection: ExampleIcon,
-        label: 'Create Example',
+        label: '创建示例',
         onClick: () => setCreateExampleModalOpen(true)
       });
     }
@@ -393,7 +393,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
     items.push({
       id: 'info',
       leftSection: IconInfoCircle,
-      label: 'Info',
+      label: '信息',
       onClick: () => setItemInfoModalOpen(true)
     });
 
@@ -402,13 +402,13 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
         {
           id: 'settings',
           leftSection: IconSettings,
-          label: 'Settings',
+          label: '设置',
           onClick: viewFolderSettings
         },
         {
           id: 'open-terminal',
           leftSection: IconTerminal2,
-          label: 'Open in Terminal',
+          label: '在终端中打开',
           onClick: async () => {
             const folderCwd = item.pathname || collectionPathname;
             await openDevtoolsAndSwitchToTerminal(dispatch, folderCwd);
@@ -420,7 +420,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
     items.push({
       id: 'delete',
       leftSection: IconTrash,
-      label: 'Delete',
+      label: '删除',
       className: 'delete-item',
       onClick: () => setDeleteItemModalOpen(true)
     });
@@ -624,7 +624,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
         isOpen={createExampleModalOpen}
         onClose={() => setCreateExampleModalOpen(false)}
         onSave={handleCreateExample}
-        title="Create Response Example"
+        title="创建响应示例"
         initialName={getInitialExampleName(item)}
       />
       <div
@@ -736,7 +736,7 @@ const CollectionItem = ({ item, collectionUid, collectionPathname, searchText })
                   appendTo={dropdownContainerRef?.current || document.body}
                   popperOptions={{ strategy: 'fixed' }}
                 >
-                  <button className="ml-1 add-request-link">+ Add request</button>
+                  <button className="ml-1 add-request-link">+ 添加 Request</button>
                 </MenuDropdown>
               </div>
             </div>

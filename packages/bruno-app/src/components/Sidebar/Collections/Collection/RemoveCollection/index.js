@@ -22,20 +22,20 @@ const RemoveCollection = ({ onClose, collectionUid }) => {
 
   const onConfirm = () => {
     if (!collection) {
-      toast.error('Collection not found');
+      toast.error('未找到 Collection');
       onClose();
       return;
     }
     dispatch(removeCollection(collection.uid))
       .then(() => {
-        toast.success('Collection removed from workspace');
+        toast.success('Collection 已从 Workspace 移除');
         onClose();
       })
-      .catch(() => toast.error('An error occurred while removing the collection'));
+      .catch(() => toast.error('移除 Collection 时发生错误'));
   };
 
   if (!collection) {
-    return <div>Collection not found</div>;
+    return <div>未找到 Collection</div>;
   }
 
   // If there are drafts, show the draft confirmation modal
@@ -46,7 +46,7 @@ const RemoveCollection = ({ onClose, collectionUid }) => {
   const customHeader = (
     <div className="flex items-center gap-2" data-testid="close-collection-modal-title">
       <IconAlertCircle size={18} strokeWidth={1.5} className="warning-icon" />
-      <span>Remove Collection</span>
+      <span>移除 Collection</span>
     </div>
   );
 
@@ -55,20 +55,20 @@ const RemoveCollection = ({ onClose, collectionUid }) => {
     <StyledWrapper>
       <Modal
         size="sm"
-        title="Remove Collection"
+        title="移除 Collection"
         customHeader={customHeader}
-        confirmText="Remove"
+        confirmText="移除"
         confirmButtonColor="warning"
         handleConfirm={onConfirm}
         handleCancel={onClose}
       >
-        <p className="mb-4">Are you sure you want to close following collection in Bruno?</p>
+        <p className="mb-4">确定要在 Bruno 中关闭以下 Collection 吗？</p>
         <div className="collection-info-card">
           <div className="collection-name">{collection.name}</div>
           <div className="collection-path">{collection.pathname}</div>
         </div>
         <p className="mt-4 text-muted text-sm">
-          It will still be available in the filesystem at the above location and can be re-opened later.
+          它仍会保留在文件系统中的上述位置，可以稍后重新打开。
         </p>
       </Modal>
     </StyledWrapper>

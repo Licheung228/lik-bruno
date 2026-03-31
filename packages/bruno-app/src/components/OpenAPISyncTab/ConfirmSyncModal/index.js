@@ -50,19 +50,19 @@ const ConfirmSyncModal = ({ groups, onCancel, onSync, isSyncing }) => {
   return (
     <Modal
       size="md"
-      title="Confirm Sync"
+      title="确认同步"
       handleCancel={onCancel}
       hideFooter={true}
     >
       <div className="sync-confirm-modal">
         {hasNoChanges ? (
           <p className="sync-confirm-description">
-            Your collection is already in sync with the remote spec. Syncing will update the local spec file to match the latest remote version.
+            你的 Collection 已与远程 Spec 同步。同步操作将更新本地 Spec 文件以匹配最新的远程版本。
           </p>
         ) : (
           <>
             <p className="sync-confirm-description">
-              The following changes will be applied to your collection. This action cannot be undone. Are you sure you want to proceed?
+              以下变更将应用到你的 Collection。此操作无法撤销。确定要继续吗？
             </p>
 
             <div className="sync-confirm-groups">
@@ -75,10 +75,10 @@ const ConfirmSyncModal = ({ groups, onCancel, onSync, isSyncing }) => {
 
         <div className="sync-confirm-actions">
           <Button variant="ghost" color="secondary" onClick={onCancel}>
-            Cancel
+            取消
           </Button>
           <Button onClick={onSync} loading={isSyncing} disabled={isSyncing}>
-            {hasNoChanges ? 'Restore Spec File' : 'Confirm & Sync Collection'}
+            {hasNoChanges ? '恢复 Spec 文件' : '确认并同步 Collection'}
           </Button>
         </div>
       </div>

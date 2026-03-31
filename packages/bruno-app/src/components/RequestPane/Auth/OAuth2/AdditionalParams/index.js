@@ -171,20 +171,20 @@ const AdditionalParams = ({ item = {}, request, updateAuth, collection, handleSa
           <IconAdjustmentsHorizontal size={14} className="oauth2-icon" />
         </div>
         <span className="oauth2-section-label">
-          Additional Parameters
+         附加参数
         </span>
       </div>
 
       <div className="tabs flex w-full gap-2 my-2">
-        {availableTabs.includes('authorization') && renderTab('authorization', 'Authorization')}
+        {availableTabs.includes('authorization') && renderTab('authorization', '授权')}
         {availableTabs.includes('token') && renderTab('token', 'Token')}
-        {availableTabs.includes('refresh') && renderTab('refresh', 'Refresh')}
+        {availableTabs.includes('refresh') && renderTab('refresh', '刷新')}
       </div>
       <Table
         headers={[
-          { name: 'Key', accessor: 'name', width: '30%' },
-          { name: 'Value', accessor: 'value', width: '30%' },
-          { name: 'Send In', accessor: 'sendIn', width: '150px' },
+          { name: '键', accessor: 'name', width: '30%' },
+          { name: '值', accessor: 'value', width: '30%' },
+          { name: '发送方式', accessor: 'sendIn', width: '150px' },
           { name: '', accessor: '', width: '15%' }
         ]}
       >
@@ -281,7 +281,7 @@ const AdditionalParams = ({ item = {}, request, updateAuth, collection, handleSa
         onClick={addButtonDisabled ? null : handleAddNewAdditionalParam}
       >
         <IconPlus size={16} strokeWidth={1.5} style={{ marginLeft: '2px' }} />
-        <span className="ml-1 text-gray-500">Add Parameter</span>
+        <span className="ml-1 text-gray-500">添加参数</span>
       </div>
     </StyledWrapper>
   );

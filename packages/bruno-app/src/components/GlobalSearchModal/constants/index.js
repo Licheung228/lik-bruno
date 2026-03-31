@@ -24,9 +24,9 @@ export const SEARCH_CONFIG = {
 
 export const DOCUMENTATION_RESULT = {
   type: SEARCH_TYPES.DOCUMENTATION,
-  item: { id: 'docs', name: 'Bruno Documentation' },
-  name: 'Bruno Documentation',
+  item: { id: 'docs', name: 'Bruno 文档' },
+  name: 'Bruno 文档',
   path: '/',
-  description: 'Browse the official Bruno documentation',
+  description: '浏览 Bruno 官方文档',
   matchType: MATCH_TYPES.DOCUMENTATION
 };

@@ -41,22 +41,22 @@ const SpecDiffModal = ({ specDrift, onClose }) => {
   return (
     <Modal
       size="xl"
-      title="Spec Diff"
+      title="Spec 差异"
       hideFooter
       handleCancel={onClose}
     >
       <div className="spec-diff-modal">
         <div className="spec-diff-badges">
-          {modifiedCount > 0 && <StatusBadge status="warning">Updated: {modifiedCount}</StatusBadge>}
-          {addedCount > 0 && <StatusBadge status="success">Added: {addedCount}</StatusBadge>}
-          {removedCount > 0 && <StatusBadge status="danger">Removed: {removedCount}</StatusBadge>}
+          {modifiedCount > 0 && <StatusBadge status="warning">已更新: {modifiedCount}</StatusBadge>}
+          {addedCount > 0 && <StatusBadge status="success">已添加: {addedCount}</StatusBadge>}
+          {removedCount > 0 && <StatusBadge status="danger">已删除: {removedCount}</StatusBadge>}
           {versionLabel && <StatusBadge>{versionLabel}</StatusBadge>}
         </div>
 
         <p className="spec-diff-subtitle">
           {specDrift?.storedSpecMissing
-            ? 'The current spec file is missing. The full remote spec is shown below.'
-            : 'Side-by-side diff of your current spec vs the updated spec from the spec URL.'}
+            ? '当前 Spec 文件缺失。下方显示完整的远程 Spec。'
+            : '当前 Spec 与来自 Spec URL 的更新 Spec 的并排差异对比。'}
         </p>
 
         <div className="spec-diff-body">
@@ -64,19 +64,19 @@ const SpecDiffModal = ({ specDrift, onClose }) => {
             {specDrift?.unifiedDiff ? (
               <>
                 <div className="diff-column-headers">
-                  <span className="diff-column-label">{specDrift?.storedSpecMissing ? 'Current Spec (missing)' : 'Current Spec'}</span>
-                  <span className="diff-column-label">Updated Spec</span>
+                  <span className="diff-column-label">{specDrift?.storedSpecMissing ? '当前 Spec（缺失）' : '当前 Spec'}</span>
+                  <span className="diff-column-label">更新的 Spec</span>
                 </div>
                 {isRendering && (
                   <div className="text-diff-loading">
                     <IconLoader2 className="animate-spin" size={20} strokeWidth={1.5} />
-                    <span>Loading diff...</span>
+                    <span>加载差异中...</span>
                   </div>
                 )}
                 <div ref={diffRef} style={{ display: isRendering ? 'none' : 'block' }}></div>
               </>
             ) : (
-              <div className="text-diff-empty">No text diff available.</div>
+              <div className="text-diff-empty">无文本差异可用。</div>
             )}
           </div>
         </div>

@@ -45,7 +45,7 @@ const GrpcResponsePane = ({ item, collection }) => {
   const allTabs = [
     {
       key: 'response',
-      label: 'Response',
+      label: '响应',
       indicator:
         responsesCount > 0 ? (
           <sup data-testid="grpc-tab-response-count" className="ml-1 font-medium">
@@ -65,7 +65,7 @@ const GrpcResponsePane = ({ item, collection }) => {
     },
     {
       key: 'timeline',
-      label: 'Timeline',
+      label: '时间线',
       indicator: null
     }
   ];
@@ -85,7 +85,7 @@ const GrpcResponsePane = ({ item, collection }) => {
         return <Timeline collection={collection} item={item} activeTabUid={activeTabUid} />;
       }
       default: {
-        return <div>404 | Not found</div>;
+        return <div>404 | 未找到</div>;
       }
     }
   };
@@ -107,12 +107,12 @@ const GrpcResponsePane = ({ item, collection }) => {
   }
 
   if (!activeTabUid) {
-    return <div>Something went wrong</div>;
+    return <div>出现问题</div>;
   }
 
   const focusedTab = find(tabs, (t) => t.uid === activeTabUid);
   if (!focusedTab || !focusedTab.uid || !focusedTab.responsePaneTab) {
-    return <div className="pb-4 px-4">An error occurred!</div>;
+    return <div className="pb-4 px-4">发生错误！</div>;
   }
 
   const rightContent = !isLoading ? (

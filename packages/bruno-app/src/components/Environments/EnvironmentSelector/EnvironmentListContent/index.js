@@ -18,7 +18,7 @@ const EnvironmentListContent = ({
         <>
           <div className="environment-list">
             <div className="dropdown-item no-environment" onClick={() => onEnvironmentSelect(null)}>
-              <span>No Environment</span>
+              <span>无 Environment</span>
             </div>
             <ToolHint
               anchorSelect="[data-tooltip-content]"
@@ -48,23 +48,23 @@ const EnvironmentListContent = ({
             <div className="dropdown-item configure-button">
               <button onClick={onSettingsClick} id="configure-env">
                 <IconSettings size={16} strokeWidth={1.5} />
-                <span>Configure</span>
+                <span>配置</span>
               </button>
             </div>
           </div>
         </>
       ) : (
         <div className="empty-state">
-          <h3>Ready to get started?</h3>
+          <h3>准备开始？</h3>
           <p>{description}</p>
           <div className="space-y-2">
             <button onClick={onCreateClick} id="create-env">
               <IconPlus size={16} strokeWidth={1.5} />
-              Create
+              创建
             </button>
             <button onClick={onImportClick} id="import-env">
               <IconDownload size={16} strokeWidth={1.5} />
-              Import
+              导入
             </button>
           </div>
         </div>

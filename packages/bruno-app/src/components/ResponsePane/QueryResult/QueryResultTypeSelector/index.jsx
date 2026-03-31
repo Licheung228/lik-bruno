@@ -101,7 +101,7 @@ const QueryResultTypeSelector = ({
 
   const header = (
     <div className="flex items-center justify-between gap-3 py-[0.35rem] px-[0.6rem]">
-      <span className="text-[0.8125rem] preview-response-tab-label">Preview</span>
+      <span className="text-[0.8125rem] preview-response-tab-label">预览</span>
       <ToggleSwitch
         isOn={selectedTab === 'preview'}
         handleToggle={(e) => {
@@ -111,7 +111,7 @@ const QueryResultTypeSelector = ({
         }}
         size="2xs"
         data-testid="preview-response-tab"
-        title={selectedTab === 'preview' ? 'Turn off Preview Mode' : 'Turn on Preview Mode'}
+        title={selectedTab === 'preview' ? '关闭预览模式' : '开启预览模式'}
       />
     </div>
   );

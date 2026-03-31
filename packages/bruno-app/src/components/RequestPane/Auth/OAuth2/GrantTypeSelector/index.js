@@ -69,16 +69,16 @@ const GrantTypeSelector = ({ item = {}, request, updateAuth, collection }) => {
           <IconKey size={14} className="oauth2-icon" />
         </div>
         <span className="oauth2-section-label">
-          Grant Type
+          授权类型
         </span>
       </div>
       <div className="inline-flex items-center cursor-pointer grant-type-mode-selector w-fit">
         <MenuDropdown
           items={[
-            { id: 'password', label: 'Password Credentials', onClick: () => onGrantTypeChange('password') },
-            { id: 'authorization_code', label: 'Authorization Code', onClick: () => onGrantTypeChange('authorization_code') },
-            { id: 'implicit', label: 'Implicit', onClick: () => onGrantTypeChange('implicit') },
-            { id: 'client_credentials', label: 'Client Credentials', onClick: () => onGrantTypeChange('client_credentials') }
+            { id: 'password', label: '密码授权', onClick: () => onGrantTypeChange('password') },
+            { id: 'authorization_code', label: '授权码', onClick: () => onGrantTypeChange('authorization_code') },
+            { id: 'implicit', label: '隐式授权', onClick: () => onGrantTypeChange('implicit') },
+            { id: 'client_credentials', label: '客户端凭证', onClick: () => onGrantTypeChange('client_credentials') }
           ]}
           selectedItemId={oAuth?.grantType}
           placement="bottom-end"

@@ -40,10 +40,10 @@ const SpecStatusSection = ({
 
   const bannerState = useMemo(() => {
     if (fileNotFound) {
-      return { variant: 'danger', message: `Source file not found at ${sourceUrl}`, actions: ['open-settings'] };
+      return { variant: 'danger', message: `源文件未找到: ${sourceUrl}`, actions: ['open-settings'] };
     }
     if (error || specDrift?.isValid === false) {
-      return { variant: 'danger', message: error || specDrift?.error || 'Invalid OpenAPI specification', actions: ['open-settings'] };
+      return { variant: 'danger', message: error || specDrift?.error || '无效的 OpenAPI specification', actions: ['open-settings'] };
     }
     if (!specDrift) {
       return null;
@@ -59,7 +59,7 @@ const SpecStatusSection = ({
         ? ` (v${specDrift.storedVersion} → v${specDrift.newVersion})`
         : '';
       return {
-        variant: 'warning', message: `OpenAPI spec has been updated${versionInfo}`, actions: [],
+        variant: 'warning', message: `OpenAPI spec 已更新${versionInfo}`, actions: [],
         changes: { added: specDrift.added?.length || 0, modified: specDrift.modified?.length || 0, removed: specDrift.removed?.length || 0 }
       };
     }
@@ -86,16 +86,16 @@ const SpecStatusSection = ({
               </span>
               {bannerState.changes && (
                 <span className="banner-details">
-                  {bannerState.changes.modified > 0 && <StatusBadge key="modified" status="warning" radius="full">{bannerState.changes.modified} {bannerState.changes.modified > 1 ? 'endpoints' : 'endpoint'} updated</StatusBadge>}
-                  {bannerState.changes.added > 0 && <StatusBadge key="added" status="success" radius="full">{bannerState.changes.added} {bannerState.changes.added > 1 ? 'endpoints' : 'endpoint'} added</StatusBadge>}
-                  {bannerState.changes.removed > 0 && <StatusBadge key="removed" status="danger" radius="full">{bannerState.changes.removed} {bannerState.changes.removed > 1 ? 'endpoints' : 'endpoint'} removed</StatusBadge>}
+                  {bannerState.changes.modified > 0 && <StatusBadge key="modified" status="warning" radius="full">{bannerState.changes.modified} {bannerState.changes.modified > 1 ? '个 endpoint' : '个 endpoint'} 已更新</StatusBadge>}
+                  {bannerState.changes.added > 0 && <StatusBadge key="added" status="success" radius="full">{bannerState.changes.added} {bannerState.changes.added > 1 ? '个 endpoint' : '个 endpoint'} 已添加</StatusBadge>}
+                  {bannerState.changes.removed > 0 && <StatusBadge key="removed" status="danger" radius="full">{bannerState.changes.removed} {bannerState.changes.removed > 1 ? '个 endpoint' : '个 endpoint'} 已删除</StatusBadge>}
                 </span>
               )}
             </div>
             <div className="banner-actions">
               {bannerState.actions.includes('open-settings') && (
                 <Button variant="ghost" size="sm" onClick={onOpenSettings}>
-                  Update connection settings
+                  更新连接设置
                 </Button>
               )}
             </div>
@@ -106,16 +106,16 @@ const SpecStatusSection = ({
       {(error || fileNotFound || specDrift?.isValid === false) ? (
         <div className="sync-review-empty-state mt-5">
           <IconAlertTriangle size={40} className="empty-state-icon" />
-          <h4>Unable to check for updates</h4>
-          <p>Fix the connection issue above and check again.</p>
+          <h4>无法检查更新</h4>
+          <p>请修复上述连接问题后重新检查。</p>
         </div>
       ) : specDrift?.storedSpecMissing && openApiSyncConfig?.lastSyncDate && !hasRemoteUpdates ? (
         <div className="sync-review-empty-state mt-5">
           <IconCheck size={40} className="empty-state-icon" />
-          <h4>No updates from the spec</h4>
-          <p>The spec endpoints have not been updated since the last sync. You can restore the spec file to track local collection changes.</p>
+          <h4>Spec 无更新</h4>
+          <p>自上次同步以来 Spec endpoint 未更新。你可以恢复 Spec 文件以追踪本地 Collection 变更。</p>
           <Button className="mt-4" color="warning" onClick={handleRestoreSpec} loading={isSyncing}>
-            Restore Spec File
+            恢复 Spec 文件
           </Button>
         </div>
       ) : (

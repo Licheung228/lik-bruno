@@ -26,12 +26,12 @@ const ResponseDownload = forwardRef(({ item, children }, ref) => {
         .invoke('renderer:save-response-to-file', response, item?.requestSent?.url, item.pathname)
         .then((result) => {
           if (result && result.success) {
-            toast.success('Response downloaded to file');
+            toast.success('响应已下载到文件');
           }
           resolve();
         })
         .catch((err) => {
-          toast.error(get(err, 'error.message') || 'Something went wrong!');
+          toast.error(get(err, 'error.message') || '出现问题！');
           reject(err);
         });
     });
@@ -42,7 +42,7 @@ const ResponseDownload = forwardRef(({ item, children }, ref) => {
       ref={elementRef}
       aria-disabled={isDisabled}
       onClick={saveResponseToFile}
-      title={!children ? 'Save response to file' : null}
+      title={!children ? '保存响应到文件' : null}
       className={classnames({
         'opacity-50 cursor-not-allowed': isDisabled && !children
       })}

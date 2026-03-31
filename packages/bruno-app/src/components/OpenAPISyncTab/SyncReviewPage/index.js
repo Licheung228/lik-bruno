@@ -163,15 +163,15 @@ const SyncReviewPage = ({
     const isSkipped = (ep) => decisions[ep.id] === 'keep-mine';
 
     // Accepted — changes that will be applied
-    addGroup('New endpoints to add', 'add', specAddedEndpoints.filter(isAccepted));
-    addGroup('Endpoints to update', 'update', specUpdatedEndpoints.filter(isAccepted));
-    addGroup('Endpoints to delete', 'remove', specRemovedEndpoints.filter(isAccepted));
+    addGroup('要添加的新 endpoint', 'add', specAddedEndpoints.filter(isAccepted));
+    addGroup('要更新的 endpoint', 'update', specUpdatedEndpoints.filter(isAccepted));
+    addGroup('要删除的 endpoint', 'remove', specRemovedEndpoints.filter(isAccepted));
 
     // Skipped — changes that will be preserved as-is
-    addGroup('Keeping local version', 'keep', specUpdatedEndpoints.filter((ep) => ep.conflict && isSkipped(ep)));
-    addGroup('Retaining removed endpoints', 'keep', specRemovedEndpoints.filter(isSkipped));
-    addGroup('Skipped new endpoints', 'keep', specAddedEndpoints.filter(isSkipped));
-    addGroup('Keeping current version (skipped updates)', 'keep', specUpdatedEndpoints.filter((ep) => !ep.conflict && isSkipped(ep)));
+    addGroup('保留本地版本', 'keep', specUpdatedEndpoints.filter((ep) => ep.conflict && isSkipped(ep)));
+    addGroup('保留已删除的 endpoint', 'keep', specRemovedEndpoints.filter(isSkipped));
+    addGroup('跳过的新 endpoint', 'keep', specAddedEndpoints.filter(isSkipped));
+    addGroup('保留当前版本（跳过更新）', 'keep', specUpdatedEndpoints.filter((ep) => !ep.conflict && isSkipped(ep)));
 
     return groups;
   }, [specAddedEndpoints, specUpdatedEndpoints, specRemovedEndpoints, decisions]);
@@ -207,10 +207,10 @@ const SyncReviewPage = ({
   const hasRemoteUpdates = specAddedEndpoints.length + specUpdatedEndpoints.length + specRemovedEndpoints.length > 0;
 
   const buttonLabel = unresolvedConflicts > 0
-    ? `Resolve ${unresolvedConflicts} conflict${unresolvedConflicts !== 1 ? 's and sync' : ' and sync'}`
+    ? `解决 ${unresolvedConflicts} 个冲突并同步`
     : !hasRemoteUpdates && specDrift?.storedSpecMissing
-        ? 'Restore Spec File'
-        : 'Sync Collection';
+        ? '恢复 Spec 文件'
+        : '同步 Collection';
 
   return (
     <div className="sync-review-page sync-mode">
@@ -218,10 +218,10 @@ const SyncReviewPage = ({
         <div className="sync-review-header">
           <div className="title-row">
             <div className="title-left">
-              <h3 className="review-title">Review Changes</h3>
+              <h3 className="review-title">审查变更</h3>
               {totalChanges > 0 && (
                 <p className="review-subtitle">
-                  Choose to keep the current version or accept the updated one.
+                  选择保留当前版本或接受更新版本。
                 </p>
               )}
             </div>
@@ -229,7 +229,7 @@ const SyncReviewPage = ({
               <div className="bulk-actions">
                 {specDrift?.unifiedDiff && (
                   <button className="bulk-btn" onClick={() => setShowSpecDiffModal(true)}>
-                    <IconArrowsDiff size={12} /> View Spec Diff
+                    <IconArrowsDiff size={12} /> 查看 Spec 差异
                   </button>
                 )}
                 {decidableEndpoints.length > 0 && (
@@ -238,13 +238,13 @@ const SyncReviewPage = ({
                       className={`bulk-btn ${allSkipped ? 'active' : ''}`}
                       onClick={() => setBulkDecision('keep-mine')}
                     >
-                      <IconX size={12} /> Skip All
+                      <IconX size={12} /> 全部跳过
                     </button>
                     <button
                       className={`bulk-btn ${allAccepted ? 'active' : ''}`}
                       onClick={() => setBulkDecision('accept-incoming')}
                     >
-                      <IconCheck size={12} /> Accept All
+                      <IconCheck size={12} /> 全部接受
                     </button>
                   </>
                 )}
@@ -260,14 +260,14 @@ const SyncReviewPage = ({
             {isLoading ? (
               <>
                 <IconLoader2 size={40} className="empty-state-icon animate-spin" />
-                <h4>Checking for updates</h4>
-                <p>Comparing your last synced spec with the latest spec...</p>
+                <h4>检查更新中</h4>
+                <p>正在将上次同步的 Spec 与最新 Spec 进行比较...</p>
               </>
             ) : (
               <>
                 <IconCheck size={40} className="empty-state-icon" />
-                <h4>No updates from the spec</h4>
-                <p>The spec endpoints have not been updated since the last sync.</p>
+                <h4>Spec 无更新</h4>
+                <p>自上次同步以来 Spec endpoint 未更新。</p>
               </>
             )}
           </div>
@@ -278,22 +278,22 @@ const SyncReviewPage = ({
               <div className="review-group">
 
                 <EndpointChangeSection
-                  title="Updated in Spec"
+                  title="Spec 中已更新"
                   type="spec-modified"
                   endpoints={specUpdatedEndpoints}
                   defaultExpanded={true}
                   expandableLayout
-                  subtitle="The spec has updates for these endpoints"
+                  subtitle="Spec 有这些 endpoint 的更新"
                   headerExtra={conflictCount > 0 ? (
                     <StatusBadge
                       status="danger"
                       rightSection={(
                         <Help icon="info" size={11} placement="top" width={250}>
-                          {`This section has ${conflictCount} endpoint${conflictCount === 1 ? '' : 's'} modified in both the spec and your collection. Expand to review and resolve.`}
+                          {`此部分有 ${conflictCount} 个 endpoint 在 Spec 和你的 Collection 中都被修改。展开以审查并解决。`}
                         </Help>
                       )}
                     >
-                      {conflictCount} {conflictCount === 1 ? 'Conflict' : 'Conflicts'}
+                      {conflictCount} {conflictCount === 1 ? '冲突' : '个冲突'}
                     </StatusBadge>
                   ) : null}
                   collectionUid={collectionUid}
@@ -307,19 +307,19 @@ const SyncReviewPage = ({
                       collectionPath={collectionPath}
                       newSpec={newSpec}
                       showDecisions={true}
-                      decisionLabels={{ keep: 'Keep Current', accept: 'Update' }}
+                      decisionLabels={{ keep: '保留当前', accept: '更新' }}
                       collectionUid={collectionUid}
                     />
                   )}
                 />
 
                 <EndpointChangeSection
-                  title="New in Spec"
+                  title="Spec 中新增"
                   type="added"
                   endpoints={specAddedEndpoints}
                   defaultExpanded={true}
                   expandableLayout
-                  subtitle="New endpoints from the spec"
+                  subtitle="来自 Spec 的新 endpoint"
                   collectionUid={collectionUid}
                   sectionKey="review-added"
                   renderItem={(endpoint, idx) => (
@@ -331,19 +331,19 @@ const SyncReviewPage = ({
                       collectionPath={collectionPath}
                       newSpec={newSpec}
                       showDecisions={true}
-                      decisionLabels={{ keep: 'Skip', accept: 'Add' }}
+                      decisionLabels={{ keep: '跳过', accept: '添加' }}
                       collectionUid={collectionUid}
                     />
                   )}
                 />
 
                 <EndpointChangeSection
-                  title="Removed from Spec"
+                  title="Spec 中已删除"
                   type="removed"
                   endpoints={specRemovedEndpoints}
                   defaultExpanded={true}
                   expandableLayout
-                  subtitle="These endpoints are in your collection but not in the spec"
+                  subtitle="这些 endpoint 在你的 Collection 中但不在 Spec 中"
                   collectionUid={collectionUid}
                   sectionKey="review-removed"
                   renderItem={(endpoint, idx) => (
@@ -355,7 +355,7 @@ const SyncReviewPage = ({
                       collectionPath={collectionPath}
                       newSpec={newSpec}
                       showDecisions={true}
-                      decisionLabels={{ keep: 'Keep', accept: 'Delete' }}
+                      decisionLabels={{ keep: '保留', accept: '删除' }}
                       collectionUid={collectionUid}
                     />
                   )}
@@ -370,7 +370,7 @@ const SyncReviewPage = ({
       {hasRemoteUpdates && (
         <div className="sync-info-notice mt-4">
           <IconInfoCircle size={14} className="sync-info-icon" />
-          <span><span className="whats-updated-title">What gets updated:</span> Parameters, headers, body and auth will be updated. Tests, scripts, and assertions are always preserved.</span>
+          <span><span className="whats-updated-title">更新内容：</span>参数、headers、body 和 auth 将被更新。测试、脚本和断言始终保留。</span>
         </div>
       )}
 
@@ -379,7 +379,7 @@ const SyncReviewPage = ({
           <div className="bar-stats">
             {totalChanges === 0 && (
               <span className="stats-prefix">
-                {specDrift?.storedSpecMissing ? 'Sync will update the spec file' : 'No endpoint changes to apply'}
+                {specDrift?.storedSpecMissing ? '同步将更新 Spec 文件' : '无 endpoint 变更需要应用'}
               </span>
             )}
           </div>

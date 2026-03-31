@@ -392,7 +392,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'new-request',
       leftSection: IconFilePlus,
-      label: 'New Request',
+      label: '新建 Request',
       onClick: () => {
         ensureCollectionIsMounted();
         setShowNewRequestModal(true);
@@ -401,7 +401,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'new-folder',
       leftSection: IconFolderPlus,
-      label: 'New Folder',
+      label: '新建 Folder',
       onClick: () => {
         ensureCollectionIsMounted();
         setShowNewFolderModal(true);
@@ -410,7 +410,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'run',
       leftSection: IconPlayerPlay,
-      label: 'Run',
+      label: '运行',
       onClick: () => {
         ensureCollectionIsMounted();
         handleRun();
@@ -419,7 +419,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'clone',
       leftSection: IconCopy,
-      label: 'Clone',
+      label: '克隆',
       testId: 'clone-collection',
       onClick: () => {
         setShowCloneCollectionModalOpen(true);
@@ -445,7 +445,7 @@ const Collection = ({ collection, searchText }) => {
           {
             id: 'paste',
             leftSection: IconClipboard,
-            label: 'Paste',
+            label: '粘贴',
             onClick: handlePasteItem
           }
         ]
@@ -453,7 +453,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'rename',
       leftSection: IconEdit,
-      label: 'Rename',
+      label: '重命名',
       onClick: () => {
         setShowRenameCollectionModal(true);
       }
@@ -461,7 +461,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'share',
       leftSection: IconShare,
-      label: 'Share',
+      label: '分享',
       onClick: () => {
         ensureCollectionIsMounted();
         setShowShareCollectionModal(true);
@@ -470,7 +470,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'generate-docs',
       leftSection: IconBook,
-      label: 'Generate Docs',
+      label: '生成文档',
       onClick: () => {
         ensureCollectionIsMounted();
         setShowGenerateDocumentationModal(true);
@@ -479,7 +479,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'collapse',
       leftSection: IconFoldDown,
-      label: 'Collapse',
+      label: '折叠',
       onClick: handleCollapseFullCollection
     },
     {
@@ -491,7 +491,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'git-actiongs',
       leftSection: IconGitCompare,
-      label: 'Git Actions',
+      label: 'Git 操作',
       onClick: () => {
         console.log('%c Mark 🔸>>>', 'color: red;', 123);
         setGitActiongModal(true);
@@ -504,13 +504,13 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'settings',
       leftSection: IconSettings,
-      label: 'Settings',
+      label: '设置',
       onClick: viewCollectionSettings
     },
     {
       id: 'terminal',
       leftSection: IconTerminal2,
-      label: 'Open in Terminal',
+      label: '在终端中打开',
       onClick: async () => {
         const collectionCwd = collection.pathname;
         await openDevtoolsAndSwitchToTerminal(dispatch, collectionCwd);
@@ -519,7 +519,7 @@ const Collection = ({ collection, searchText }) => {
     {
       id: 'remove',
       leftSection: IconX,
-      label: 'Remove',
+      label: '移除',
       onClick: () => {
         setShowRemoveCollectionModal(true);
       }
@@ -693,7 +693,7 @@ const Collection = ({ collection, searchText }) => {
                     popperOptions={{ strategy: 'fixed' }}
                   >
                     <button className="ml-1 add-request-link">
-                      + Add request
+                      + 添加 Request
                     </button>
                   </MenuDropdown>
                 </div>

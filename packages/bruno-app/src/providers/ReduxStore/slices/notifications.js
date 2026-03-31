@@ -8,7 +8,7 @@ const getReadNotificationIds = () => {
     let readNotificationIds = readNotificationIdsString ? JSON.parse(readNotificationIdsString) : [];
     return readNotificationIds;
   } catch (err) {
-    toast.error('An error occurred while fetching read notifications');
+    toast.error('获取已读通知时发生错误');
     return [];
   }
 };
@@ -17,7 +17,7 @@ const setReadNotificationsIds = (val) => {
   try {
     window.localStorage.setItem('bruno.notifications.read', JSON.stringify(val));
   } catch (err) {
-    toast.error('An error occurred while setting read notifications');
+    toast.error('设置已读通知时发生错误');
   }
 };
 

@@ -49,10 +49,10 @@ const OpenAPISyncHeader = ({
       } else {
         await navigator.clipboard.writeText(sourceUrl);
       }
-      toast.success(sourceIsLocal ? 'Path copied to clipboard' : 'URL copied to clipboard');
+      toast.success(sourceIsLocal ? '路径已复制到剪贴板' : 'URL 已复制到剪贴板');
     } catch (err) {
       console.error('Error copying to clipboard:', err);
-      toast.error('Failed to copy to clipboard');
+      toast.error('复制到剪贴板失败');
     }
   };
 
@@ -63,20 +63,20 @@ const OpenAPISyncHeader = ({
       await window.ipcRenderer.invoke('renderer:show-in-folder', absolutePath);
     } catch (err) {
       console.error('Error revealing in folder:', err);
-      toast.error('Failed to open in file manager');
+      toast.error('在文件管理器中打开失败');
     }
   };
 
   const menuItems = [
     {
       id: 'settings',
-      label: 'Edit connection settings',
+      label: '编辑连接设置',
       leftSection: IconSettings,
       onClick: onOpenSettings
     },
     {
       id: 'disconnect',
-      label: 'Disconnect Sync',
+      label: '断开同步',
       leftSection: IconUnlink,
       className: 'delete-item',
       onClick: onOpenDisconnect
@@ -100,28 +100,28 @@ const OpenAPISyncHeader = ({
             loading={isLoading}
             icon={<IconRefresh size={14} />}
           >
-            Check for updates
+            检查更新
           </Button>
           <Button
             color="secondary"
             size="sm"
             onClick={onViewSpec}
           >
-            View spec
+            查看 Spec
           </Button>
           <MenuDropdown items={menuItems} placement="bottom-end">
-            <ActionIcon label="More options">
+            <ActionIcon label="更多选项">
               <IconDotsVertical size={16} strokeWidth={2} />
             </ActionIcon>
           </MenuDropdown>
         </div>
       </div>
       <div className="spec-url-row">
-        <span className="spec-url-label">{sourceIsLocal ? 'Source File:' : 'Source URL:'}</span>
+        <span className="spec-url-label">{sourceIsLocal ? '源文件:' : '源 URL:'}</span>
         {sourceIsLocal ? (
           <button
             className="spec-url-value spec-file-reveal"
-            title="Reveal in file manager"
+            title="在文件管理器中显示"
             type="button"
             onClick={revealInFolder}
           >
@@ -138,12 +138,12 @@ const OpenAPISyncHeader = ({
             {sourceUrl}
           </a>
         )}
-        <button className="copy-btn" onClick={copyUrl} title={sourceIsLocal ? 'Copy path' : 'Copy URL'} type="button">
+        <button className="copy-btn" onClick={copyUrl} title={sourceIsLocal ? '复制路径' : '复制 URL'} type="button">
           <IconCopy size={12} />
         </button>
       </div>
       <div className="linked-collection-row mt-1">
-        <span className="spec-url-label">Linked Collection:</span>
+        <span className="spec-url-label">关联的 Collection:</span>
         <span className="linked-collection-name">{collection.name}</span>
         {syncStatus === 'in-sync' && (
           <Help
@@ -151,7 +151,7 @@ const OpenAPISyncHeader = ({
             width={240}
             iconComponent={() => <IconCircleCheck size={14} className="sync-status-icon in-sync" />}
           >
-            Collection is up to date with the spec
+            Collection 已与 Spec 同步
           </Help>
         )}
         {syncStatus === 'not-in-sync' && (
@@ -160,7 +160,7 @@ const OpenAPISyncHeader = ({
             width={260}
             iconComponent={() => <IconAlertTriangle size={14} className="sync-status-icon not-in-sync" />}
           >
-            Collection is not up to date with the spec
+            Collection 未与 Spec 同步
           </Help>
         )}
       </div>

@@ -55,7 +55,7 @@ const TokenSection = ({ title, token }) => {
               <button
                 onClick={() => handleCopy(token)}
                 className="p-1 oauth2-copy-button rounded"
-                title="Copy token"
+                title="复制 Token"
               >
                 {copied
                   ? <IconCheck size={16} className="text-green-700" />
@@ -68,7 +68,7 @@ const TokenSection = ({ title, token }) => {
           </div>
           {decodedToken && (
             <div className="mt-3">
-              <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">Decoded Payload</div>
+              <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">解码后的载荷</div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                 {Object.entries(decodedToken).map(([key, value]) => (
                   <div key={key} className="overflow-hidden text-ellipsis">
@@ -117,7 +117,7 @@ const ExpiryTimer = ({ expiresIn }) => {
         : 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
       }`}
     >
-      {timeLeft > 0 ? `Expires in ${formatExpiryTime(timeLeft)}` : `Expired`}
+      {timeLeft > 0 ? `${formatExpiryTime(timeLeft)}后过期` : `已过期`}
     </div>
   );
 };
@@ -137,7 +137,7 @@ const Oauth2TokenViewer = ({ collection, item, url, credentialsId, handleRun }) 
     <StyledWrapper className="relative w-auto h-fit mt-2">
       {Object.keys(creds)?.length ? (
         creds?.error ? (
-          <pre className="text-red-600 dark:text-red-400">Error fetching token. Check network logs for more details.</pre>
+          <pre className="text-red-600 dark:text-red-400">获取 Token 失败，请检查网络日志获取详细信息。</pre>
         ) : (
           <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm">
             <TokenSection title="Access Token" token={creds.access_token} />
@@ -166,7 +166,7 @@ const Oauth2TokenViewer = ({ collection, item, url, credentialsId, handleRun }) 
           </div>
         )
       ) : (
-        <div className="text-gray-500 dark:text-gray-400">No token found</div>
+        <div className="text-gray-500 dark:text-gray-400">未找到 Token</div>
       )}
     </StyledWrapper>
   );

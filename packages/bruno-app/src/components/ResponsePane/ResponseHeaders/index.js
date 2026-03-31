@@ -10,8 +10,8 @@ const ResponseHeaders = ({ headers }) => {
         <table>
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Value</td>
+              <td>名称</td>
+              <td>值</td>
             </tr>
           </thead>
           <tbody>

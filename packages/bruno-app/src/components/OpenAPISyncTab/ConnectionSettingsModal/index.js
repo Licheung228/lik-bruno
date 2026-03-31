@@ -39,14 +39,14 @@ const ConnectionSettingsModal = ({ collection, sourceUrl, onSave, onDisconnect, 
   return (
     <Modal
       size="md"
-      title="Connection Settings"
+      title="连接设置"
       hideFooter={true}
       handleCancel={onClose}
     >
       <div className="settings-modal">
         <div className="settings-body">
           <div className="settings-field">
-            <label className="settings-label">Spec Source</label>
+            <label className="settings-label">Spec 来源</label>
             <div className="setup-mode-toggle" style={{ marginBottom: '8px' }}>
               <button
                 type="button"
@@ -85,13 +85,13 @@ const ConnectionSettingsModal = ({ collection, sourceUrl, onSave, onDisconnect, 
                       try {
                         const data = await parseFileAsJsonOrYaml(file);
                         if (!isOpenApiSpec(data)) {
-                          toast.error('The selected file is not a valid OpenAPI 3.x specification');
+                          toast.error('所选文件不是有效的 OpenAPI 3.x specification');
                           return;
                         }
                         const path = window.ipcRenderer.getFilePath(file);
                         if (path) setFilePath(path);
                       } catch (err) {
-                        toast.error(err.message || 'Failed to read the selected file');
+                        toast.error(err.message || '读取所选文件失败');
                       }
                     }
                   }}
@@ -101,18 +101,18 @@ const ConnectionSettingsModal = ({ collection, sourceUrl, onSave, onDisconnect, 
                   className="settings-input file-pick-btn"
                   onClick={() => fileInputRef.current?.click()}
                 >
-                  {filePath ? filePath.split(/[\\/]/).pop() : 'Choose file...'}
+                  {filePath ? filePath.split(/[\\/]/).pop() : '选择文件...'}
                 </button>
               </>
             )}
           </div>
 
           <div className="settings-field">
-            <label className="settings-label">Auto-check for updates</label>
+            <label className="settings-label">自动检查更新</label>
             <div className="settings-toggle-row">
               <div className="toggle-info">
                 <div className="toggle-description">
-                  Automatically check for spec changes at a regular interval
+                  定期自动检查 Spec 变更
                 </div>
               </div>
               <button
@@ -127,7 +127,7 @@ const ConnectionSettingsModal = ({ collection, sourceUrl, onSave, onDisconnect, 
 
           {autoCheck && (
             <div className="settings-field">
-              <label className="settings-label">Check interval</label>
+              <label className="settings-label">检查间隔</label>
               <div className="interval-buttons">
                 {intervals.map((mins) => (
                   <button
@@ -146,11 +146,11 @@ const ConnectionSettingsModal = ({ collection, sourceUrl, onSave, onDisconnect, 
 
         <div className="settings-footer">
           <button className="disconnect-link" onClick={onDisconnect} type="button">
-            Disconnect sync
+            断开同步
           </button>
           <div className="settings-actions">
-            <Button variant="ghost" color="secondary" size="sm" onClick={onClose}>Cancel</Button>
-            <Button size="sm" onClick={handleSave} loading={isSaving} disabled={!canSave || isSaving}>Save</Button>
+            <Button variant="ghost" color="secondary" size="sm" onClick={onClose}>取消</Button>
+            <Button size="sm" onClick={handleSave} loading={isSaving} disabled={!canSave || isSaving}>保存</Button>
           </div>
         </div>
       </div>

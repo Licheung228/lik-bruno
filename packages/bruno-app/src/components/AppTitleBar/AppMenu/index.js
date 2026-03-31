@@ -11,24 +11,24 @@ const AppMenu = () => {
   const menuItems = [
     {
       id: 'file',
-      label: 'File',
+      label: '文件',
       submenu: [
         {
           id: 'open-collection',
-          label: 'Open Collection',
+          label: '打开 Collection',
           onClick: () => ipcRenderer?.invoke('renderer:open-collection')
         },
         { type: 'divider', id: 'file-div-1' },
         {
           id: 'preferences',
-          label: 'Preferences',
+          label: '首选项',
           rightSection: <span className="shortcut">Ctrl+,</span>,
           onClick: () => ipcRenderer?.invoke('renderer:open-preferences')
         },
         { type: 'divider', id: 'file-div-2' },
         {
           id: 'quit',
-          label: 'Quit',
+          label: '退出',
           rightSection: <span className="shortcut">Alt+F4</span>,
           onClick: () => ipcRenderer?.send('renderer:window-close')
         }
@@ -36,43 +36,43 @@ const AppMenu = () => {
     },
     {
       id: 'edit',
-      label: 'Edit',
+      label: '编辑',
       submenu: [
         {
           id: 'undo',
-          label: 'Undo',
+          label: '撤销',
           rightSection: <span className="shortcut">Ctrl+Z</span>,
           onClick: () => document.execCommand('undo')
         },
         {
           id: 'redo',
-          label: 'Redo',
+          label: '重做',
           rightSection: <span className="shortcut">Ctrl+Y</span>,
           onClick: () => document.execCommand('redo')
         },
         { type: 'divider', id: 'edit-div-1' },
         {
           id: 'cut',
-          label: 'Cut',
+          label: '剪切',
           rightSection: <span className="shortcut">Ctrl+X</span>,
           onClick: () => document.execCommand('cut')
         },
         {
           id: 'copy',
-          label: 'Copy',
+          label: '复制',
           rightSection: <span className="shortcut">Ctrl+C</span>,
           onClick: () => document.execCommand('copy')
         },
         {
           id: 'paste',
-          label: 'Paste',
+          label: '粘贴',
           rightSection: <span className="shortcut">Ctrl+V</span>,
           onClick: () => document.execCommand('paste')
         },
         { type: 'divider', id: 'edit-div-2' },
         {
           id: 'select-all',
-          label: 'Select All',
+          label: '全选',
           rightSection: <span className="shortcut">Ctrl+A</span>,
           onClick: () => document.execCommand('selectAll')
         }
@@ -80,37 +80,37 @@ const AppMenu = () => {
     },
     {
       id: 'view',
-      label: 'View',
+      label: '视图',
       submenu: [
         {
           id: 'toggle-devtools',
-          label: 'Developer Tools',
+          label: '开发者工具',
           rightSection: <span className="shortcut">Ctrl+Shift+I</span>,
           onClick: () => ipcRenderer?.invoke('renderer:toggle-devtools')
         },
         { type: 'divider', id: 'view-div-1' },
         {
           id: 'reset-zoom',
-          label: 'Reset Zoom',
+          label: '重置缩放',
           rightSection: <span className="shortcut">Ctrl+0</span>,
           onClick: () => ipcRenderer?.invoke('renderer:reset-zoom')
         },
         {
           id: 'zoom-in',
-          label: 'Zoom In',
+          label: '放大',
           rightSection: <span className="shortcut">Ctrl++</span>,
           onClick: () => ipcRenderer?.invoke('renderer:zoom-in')
         },
         {
           id: 'zoom-out',
-          label: 'Zoom Out',
+          label: '缩小',
           rightSection: <span className="shortcut">Ctrl+-</span>,
           onClick: () => ipcRenderer?.invoke('renderer:zoom-out')
         },
         { type: 'divider', id: 'view-div-2' },
         {
           id: 'toggle-fullscreen',
-          label: 'Full Screen',
+          label: '全屏',
           rightSection: <span className="shortcut">F11</span>,
           onClick: () => ipcRenderer?.invoke('renderer:toggle-fullscreen')
         }
@@ -118,16 +118,16 @@ const AppMenu = () => {
     },
     {
       id: 'help',
-      label: 'Help',
+      label: '帮助',
       submenu: [
         {
           id: 'about',
-          label: 'About Bruno',
+          label: '关于 Bruno',
           onClick: () => ipcRenderer?.invoke('renderer:open-about')
         },
         {
           id: 'documentation',
-          label: 'Documentation',
+          label: '文档',
           onClick: () => ipcRenderer?.invoke('renderer:open-docs')
         }
       ]

@@ -94,11 +94,11 @@ const ExpandableEndpointRow = ({ endpoint, decision, onDecisionChange, collectio
             status="danger"
             rightSection={(
               <Help icon="info" size={11} placement="top" width={250}>
-                This endpoint was modified in both the spec and your collection. Choose which version to keep.
+                该 endpoint 在 Spec 和你的 Collection 中都被修改了。请选择保留哪个版本。
               </Help>
             )}
           >
-            Conflict
+            冲突
           </StatusBadge>
         )}
 
@@ -109,16 +109,16 @@ const ExpandableEndpointRow = ({ endpoint, decision, onDecisionChange, collectio
             <button
               className={`decision-btn keep ${decision === 'keep-mine' ? 'selected' : ''}`}
               onClick={() => onDecisionChange('keep-mine')}
-              title="Keep your local version"
+              title="保留本地版本"
             >
-              <IconX size={12} /> {decisionLabels?.keep || 'Keep Mine'}
+              <IconX size={12} /> {decisionLabels?.keep || '保留我的'}
             </button>
             <button
               className={`decision-btn accept ${decision === 'accept-incoming' ? 'selected' : ''}`}
               onClick={() => onDecisionChange('accept-incoming')}
-              title="Accept the spec version"
+              title="接受 Spec 版本"
             >
-              <IconCheck size={12} /> {decisionLabels?.accept || 'Accept Spec'}
+              <IconCheck size={12} /> {decisionLabels?.accept || '接受 Spec'}
             </button>
           </div>
         )}
@@ -129,20 +129,20 @@ const ExpandableEndpointRow = ({ endpoint, decision, onDecisionChange, collectio
           {isLoading && (
             <div className="diff-loading">
               <IconLoader2 size={16} className="spinning" />
-              <span>Loading diff...</span>
+              <span>加载差异中...</span>
             </div>
           )}
           {error && (
             <div className="diff-error">
-              Error: {error}
+              错误: {error}
             </div>
           )}
           {diffData && !isLoading && !error && (
             <EndpointVisualDiff
               oldData={diffData.oldData}
               newData={diffData.newData}
-              leftLabel={diffLeftLabel || 'Current (in collection)'}
-              rightLabel={diffRightLabel || 'Expected (from spec)'}
+              leftLabel={diffLeftLabel || '当前（Collection 中）'}
+              rightLabel={diffRightLabel || '期望（来自 Spec）'}
               swapSides={swapDiffSides}
             />
           )}

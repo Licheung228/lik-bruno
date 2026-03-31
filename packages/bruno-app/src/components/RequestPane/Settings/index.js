@@ -97,12 +97,12 @@ const Settings = ({ item, collection }) => {
 
   return (
     <div className="h-full w-full">
-      <div className="text-xs mb-4 text-muted">Configure request settings for this item.</div>
+      <div className="text-xs mb-4 text-muted">配置此项的请求设置。</div>
       <div className="bruno-form">
         <div className="mb-6">
           <h3 className="text-xs font-medium text-gray-900 dark:text-gray-100 flex items-center gap-1 mb-4">
             <IconTag size={16} />
-            Tags
+            标签
           </h3>
           <Tags item={item} collection={collection} />
         </div>
@@ -113,8 +113,8 @@ const Settings = ({ item, collection }) => {
             <ToggleSelector
               checked={encodeUrl}
               onChange={onToggleUrlEncoding}
-              label="URL Encoding"
-              description="Automatically encode query parameters in the URL"
+              label="URL 编码"
+              description="自动编码 URL 中的查询参数"
               size="medium"
               data-testid="encode-url-toggle"
             />
@@ -124,8 +124,8 @@ const Settings = ({ item, collection }) => {
             <ToggleSelector
               checked={followRedirects}
               onChange={onToggleFollowRedirects}
-              label="Automatically Follow Redirects"
-              description="Follow HTTP redirects automatically"
+              label="自动跟随重定向"
+              description="自动跟随 HTTP 重定向"
               size="medium"
               data-testid="follow-redirects-toggle"
             />
@@ -133,18 +133,18 @@ const Settings = ({ item, collection }) => {
 
           <SettingsInput
             id="maxRedirects"
-            label="Max Redirects"
+            label="最大重定向次数"
             value={maxRedirects}
             onChange={onMaxRedirectsChange}
-            description="Set a limit for the number of redirects to follow"
+            description="设置跟随重定向的最大次数限制"
             onKeyDown={handleKeyDown}
           />
 
           <InheritableSettingsInput
             id="timeout"
-            label="Timeout (ms)"
+            label="超时时间 (ms)"
             value={timeout}
-            description="Set maximum time to wait before aborting the request"
+            description="设置请求中止前的最大等待时间"
             onKeyDown={handleKeyDown}
             isInherited={isTimeoutInherited}
             onDropdownSelect={handleTimeoutDropdownSelect}

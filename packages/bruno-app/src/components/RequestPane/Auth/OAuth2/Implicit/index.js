@@ -86,11 +86,11 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
       })
     )
       .then(() => {
-        toast.success('Preference updated successfully');
+        toast.success('偏好设置更新成功');
       })
       .catch((err) => {
         console.error(err);
-        toast.error('Failed to update preference');
+        toast.error('更新偏好设置失败');
       });
   };
 
@@ -102,11 +102,11 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
           <IconSettings size={14} className="oauth2-icon" />
         </div>
         <span className="oauth2-section-label">
-          Configuration
+          配置
         </span>
       </div>
       <div className="flex items-center gap-4 w-full" key="input-callbackUrl">
-        <label className="block min-w-[140px]">Callback URL</label>
+        <label className="block min-w-[140px]">回调 URL</label>
         <div className="flex flex-col gap-1 w-full">
           <div className="oauth2-input-wrapper flex-1 flex items-center">
             <SingleLineEditor
@@ -139,7 +139,7 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
               handleUseSystemBrowserToggle({ target: { checked: !useSystemBrowser } });
             }}
           >
-            Use system browser for OAuth
+            使用系统浏览器进行 OAuth
           </label>
         </div>
       </div>
@@ -175,7 +175,7 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
       </div>
 
       <div className="flex items-center gap-4 w-full" key="input-token-type">
-        <label className="block min-w-[140px]">Token Source</label>
+        <label className="block min-w-[140px]">Token 来源</label>
         <div className="inline-flex items-center cursor-pointer token-placement-selector">
           <MenuDropdown
             items={[
@@ -210,7 +210,7 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
       </div>
 
       <div className="flex items-center gap-4 w-full" key="input-token-placement">
-        <label className="block min-w-[140px]">Add Token to</label>
+        <label className="block min-w-[140px]">添加 Token 到</label>
         <div className="inline-flex items-center cursor-pointer token-placement-selector">
           <MenuDropdown
             items={[
@@ -230,7 +230,7 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
 
       {tokenPlacement == 'header' ? (
         <div className="flex items-center gap-4 w-full" key="input-token-header-prefix">
-          <label className="block min-w-[140px]">Header Prefix</label>
+          <label className="block min-w-[140px]">Header 前缀</label>
           <div className="oauth2-input-wrapper flex-1">
             <SingleLineEditor
               value={oAuth.tokenHeaderPrefix || 'Bearer'}
@@ -246,7 +246,7 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
         </div>
       ) : (
         <div className="flex items-center gap-4 w-full" key="input-token-query-key">
-          <label className="block min-w-[140px]">URL Query Key</label>
+          <label className="block min-w-[140px]">URL Query 键</label>
           <div className="oauth2-input-wrapper flex-1">
             <SingleLineEditor
               value={oAuth.tokenQueryKey || 'access_token'}
@@ -267,7 +267,7 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
           <IconAdjustmentsHorizontal size={14} className="oauth2-icon" />
         </div>
         <span className="oauth2-section-label">
-          Advanced Options
+          高级选项
         </span>
       </div>
 
@@ -278,12 +278,12 @@ const OAuth2Implicit = ({ save, item = {}, request, handleRun, updateAuth, colle
           onChange={handleAutoFetchTokenToggle}
           className="cursor-pointer ml-1"
         />
-        <label className="block min-w-[140px]">Auto fetch token</label>
+        <label className="block min-w-[140px]">自动获取 Token</label>
         <div className="flex items-center gap-2">
           <div className="relative group cursor-pointer">
             <IconHelp size={16} className="text-gray-500" />
             <span className="group-hover:opacity-100 pointer-events-none opacity-0 max-w-60 absolute left-0 bottom-full mb-1 w-max p-2 bg-gray-700 text-white text-xs rounded-md transition-opacity duration-200">
-              Automatically fetch a new token when the current one expires.
+              当当前 Token 过期时自动获取新的 Token。
             </span>
           </div>
         </div>

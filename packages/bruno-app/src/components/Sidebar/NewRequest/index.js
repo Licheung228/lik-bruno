@@ -302,7 +302,7 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
     return (
       <div ref={ref} className="flex mr-2 text-link cursor-pointer items-center">
         <button className="btn-advanced" type="button">
-          Options
+          选项
         </button>
         <IconCaretDown className="caret ml-1" size={14} strokeWidth={2} />
       </div>
@@ -312,7 +312,7 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
   return (
     <Portal>
       <StyledWrapper>
-        <Modal size="md" title="New Request" hideFooter handleCancel={onClose}>
+        <Modal size="md" title="新建 Request" hideFooter handleCancel={onClose}>
           <form
             className="bruno-form"
             onSubmit={formik.handleSubmit}
@@ -331,7 +331,7 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
           >
             <div>
               <label htmlFor="requestName" className="block font-medium">
-                Type
+                类型
               </label>
 
               <div className="mt-2 grid grid-cols-3 gap-2">
@@ -410,7 +410,7 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
                       data-testid="from-curl"
                     />
                     <label htmlFor="from-curl" className="ml-1 cursor-pointer select-none">
-                      From cURL
+                      从 cURL 导入
                     </label>
                   </div>
                 </div>
@@ -418,13 +418,13 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
             </div>
             <div className="mt-4">
               <label htmlFor="requestName" className="block font-medium">
-                Request Name
+                Request 名称
               </label>
               <input
                 id="request-name"
                 type="text"
                 name="requestName"
-                placeholder="Request Name"
+                placeholder="Request 名称"
                 ref={inputRef}
                 className="block textbox mt-2 w-full"
                 autoComplete="off"
@@ -446,12 +446,11 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
               <div className="mt-4">
                 <div className="flex items-center justify-between">
                   <label htmlFor="filename" className="flex items-center font-medium">
-                    File Name <small className="font-normal text-muted ml-1">(on filesystem)</small>
+                    文件名 <small className="font-normal text-muted ml-1">(文件系统)</small>
                     <Help width="300">
-                      <p>Bruno saves each request as a file in your collection's folder.</p>
+                      <p>Bruno 将每个 Request 保存为 Collection 文件夹中的文件。</p>
                       <p className="mt-2">
-                        You can choose a file name different from your request's name or one compatible with filesystem
-                        rules.
+                        您可以选择与 Request 名称不同的文件名，或选择符合文件系统规则的名称。
                       </p>
                     </Help>
                   </label>
@@ -477,7 +476,7 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
                       id="file-name"
                       type="text"
                       name="filename"
-                      placeholder="File Name"
+                      placeholder="文件名"
                       className="!pr-10 block textbox mt-2 w-full"
                       autoComplete="off"
                       autoCorrect="off"
@@ -549,7 +548,7 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
               <div className="mt-4">
                 <div className="flex justify-between">
                   <label htmlFor="request-url" className="block font-medium">
-                    cURL Command
+                    cURL 命令
                   </label>
                   <Dropdown className="dropdown" onCreate={onDropdownCreate} icon={<Icon />} placement="bottom-end">
                     <div
@@ -574,7 +573,7 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
                 </div>
                 <textarea
                   name="curlCommand"
-                  placeholder="Enter cURL request here.."
+                  placeholder="在此输入 cURL 命令.."
                   className="block textbox w-full mt-4 curl-command"
                   value={formik.values.curlCommand}
                   onChange={handleCurlCommandChange}
@@ -597,16 +596,16 @@ const NewRequest = ({ collectionUid, item, isEphemeral, onClose }) => {
                       toggleShowFilesystemName(!showFilesystemName);
                     }}
                   >
-                    {showFilesystemName ? 'Hide Filesystem Name' : 'Show Filesystem Name'}
+                    {showFilesystemName ? '隐藏文件名' : '显示文件名'}
                   </div>
                 </Dropdown>
               </div>
               <div className="flex justify-end">
                 <Button type="button" color="secondary" variant="ghost" onClick={onClose} className="mr-2">
-                  Cancel
+                  取消
                 </Button>
                 <Button type="submit">
-                  Create
+                  创建
                 </Button>
               </div>
             </div>

@@ -29,7 +29,7 @@ const PREVIEW_FORMAT_OPTIONS = [
 ];
 
 const formatErrorMessage = (error) => {
-  if (!error) return 'Something went wrong';
+  if (!error) return '出现问题';
 
   const remoteMethodError = 'Error invoking remote method \'send-http-request\':';
 
@@ -188,8 +188,8 @@ const QueryResult = ({
 
           {error && typeof error === 'string' && error.toLowerCase().includes('self signed certificate') ? (
             <div className="mt-6 muted text-xs">
-              You can disable SSL verification in the Preferences. <br />
-              To open the Preferences, click on the gear icon in the bottom left corner.
+              您可以在偏好设置中禁用 SSL 验证。<br />
+              要打开偏好设置，请点击左下角的齿轮图标。
             </div>
           ) : null}
         </div>

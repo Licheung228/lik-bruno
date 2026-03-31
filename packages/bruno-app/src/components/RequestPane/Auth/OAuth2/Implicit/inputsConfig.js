@@ -1,7 +1,7 @@
 const inputsConfig = [
   {
     key: 'authorizationUrl',
-    label: 'Authorization URL'
+    label: '授权 URL'
   },
   {
     key: 'clientId',

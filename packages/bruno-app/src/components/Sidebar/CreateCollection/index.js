@@ -45,19 +45,19 @@ const CreateCollection = ({ onClose, defaultLocation: propDefaultLocation, initi
     },
     validationSchema: Yup.object({
       collectionName: Yup.string()
-        .min(1, 'must be at least 1 character')
-        .max(255, 'must be 255 characters or less')
-        .required('collection name is required'),
+        .min(1, '至少需要 1 个字符')
+        .max(255, '最多 255 个字符')
+        .required('Collection 名称必填'),
       collectionFolderName: Yup.string()
-        .min(1, 'must be at least 1 character')
-        .max(255, 'must be 255 characters or less')
+        .min(1, '至少需要 1 个字符')
+        .max(255, '最多 255 个字符')
         .test('is-valid-collection-name', function (value) {
           const isValid = validateName(value);
           return isValid ? true : this.createError({ message: validateNameError(value) });
         })
-        .required('folder name is required'),
-      collectionLocation: Yup.string().min(1, 'location is required').required('location is required'),
-      format: Yup.string().oneOf(['bru', 'yml'], 'invalid format').required('format is required')
+        .required('文件夹名称必填'),
+      collectionLocation: Yup.string().min(1, '位置必填').required('位置必填'),
+      format: Yup.string().oneOf(['bru', 'yml'], '格式无效').required('格式必填')
     }),
     onSubmit: async (values) => {
       try {
@@ -66,10 +66,10 @@ const CreateCollection = ({ onClose, defaultLocation: propDefaultLocation, initi
           values.collectionLocation,
           { format: values.format }));
 
-        toast.success('Collection created!');
+        toast.success('Collection 已创建！');
         onClose();
       } catch (e) {
-        toast.error(multiLineMsg('An error occurred while creating the collection', formatIpcError(e)));
+        toast.error(multiLineMsg('创建 Collection 时发生错误', formatIpcError(e)));
       }
     }
   });
@@ -103,7 +103,7 @@ const CreateCollection = ({ onClose, defaultLocation: propDefaultLocation, initi
           className="btn-advanced"
           type="button"
         >
-          Options
+          选项
         </button>
         <IconCaretDown className="caret ml-1" size={14} strokeWidth={2} />
       </div>
@@ -113,11 +113,11 @@ const CreateCollection = ({ onClose, defaultLocation: propDefaultLocation, initi
   return (
     <Portal>
       <StyledWrapper>
-        <Modal size="md" title="Create Collection" hideFooter={true} handleCancel={onClose}>
+        <Modal size="md" title="创建 Collection" hideFooter={true} handleCancel={onClose}>
           <form className="bruno-form" onSubmit={formik.handleSubmit}>
             <div>
               <label htmlFor="collection-name" className="flex items-center font-medium">
-                Name
+                名称
               </label>
               <input
                 id="collection-name"
@@ -140,13 +140,13 @@ const CreateCollection = ({ onClose, defaultLocation: propDefaultLocation, initi
               ) : null}
 
               <label htmlFor="collection-location" className="font-medium mt-3 flex items-center">
-                Location
+                位置
                 <Help>
                   <p>
-                    Bruno stores your collections on your computer's filesystem.
+                    Bruno 将 Collection 存储在您的计算机文件系统中。
                   </p>
                   <p className="mt-2">
-                    Choose the location where you want to store this collection.
+                    选择您想要存储此 Collection 的位置。
                   </p>
                 </Help>
               </label>
@@ -174,20 +174,20 @@ const CreateCollection = ({ onClose, defaultLocation: propDefaultLocation, initi
                   className="text-link cursor-pointer hover:underline"
                   onClick={browse}
                 >
-                  Browse
+                  浏览
                 </span>
               </div>
               {formik.values.collectionName?.trim()?.length > 0 && (
                 <div className="mt-4">
                   <div className="flex items-center justify-between">
                     <label htmlFor="filename" className="flex items-center font-medium">
-                      Folder Name
+                      文件夹名称
                       <Help width="300">
                         <p>
-                          The name of the folder used to store the collection.
+                          用于存储 Collection 的文件夹名称。
                         </p>
                         <p className="mt-2">
-                          You can choose a folder name different from your collection's name or one compatible with filesystem rules.
+                          您可以选择与 Collection 名称不同的文件夹名称，或选择符合文件系统规则的名称。
                         </p>
                       </Help>
                     </label>
@@ -236,16 +236,16 @@ const CreateCollection = ({ onClose, defaultLocation: propDefaultLocation, initi
               {showFileFormat && (
                 <div className="mt-4">
                   <label htmlFor="format" className="flex items-center font-medium">
-                    File Format
+                    文件格式
                     <Help width="300">
                       <p>
-                        Choose the file format for storing requests in this collection.
+                        选择此 Collection 中存储 Request 的文件格式。
                       </p>
                       <p className="mt-2">
-                        <strong>OpenCollection (YAML):</strong> Industry-standard YAML format (.yml files)
+                        <strong>OpenCollection (YAML):</strong> 行业标准 YAML 格式（.yml 文件）
                       </p>
                       <p className="mt-1">
-                        <strong>BRU:</strong> Bruno's native file format (.bru files)
+                        <strong>BRU:</strong> Bruno 原生文件格式（.bru 文件）
                       </p>
                     </Help>
                   </label>
@@ -276,16 +276,16 @@ const CreateCollection = ({ onClose, defaultLocation: propDefaultLocation, initi
                       setShowFileFormat(!showFileFormat);
                     }}
                   >
-                    {showFileFormat ? 'Hide File Format' : 'Show File Format'}
+                    {showFileFormat ? '隐藏文件格式' : '显示文件格式'}
                   </div>
                 </Dropdown>
               </div>
               <div className="flex justify-end">
                 <Button type="button" color="secondary" variant="ghost" onClick={onClose} className="mr-2">
-                  Cancel
+                  取消
                 </Button>
                 <Button type="submit">
-                  Create
+                  创建
                 </Button>
               </div>
             </div>

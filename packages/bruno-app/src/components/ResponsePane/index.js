@@ -122,7 +122,7 @@ const ResponsePane = ({ item, collection }) => {
     return [
       {
         key: 'response',
-        label: 'Response',
+        label: '响应',
         indicator: null
       },
       {
@@ -132,7 +132,7 @@ const ResponsePane = ({ item, collection }) => {
       },
       {
         key: 'timeline',
-        label: 'Timeline',
+        label: '时间线',
         indicator: null
       },
       {
@@ -193,7 +193,7 @@ const ResponsePane = ({ item, collection }) => {
       }
 
       default: {
-        return <div>404 | Not found</div>;
+        return <div>404 | 未找到</div>;
       }
     }
   };
@@ -223,11 +223,11 @@ const ResponsePane = ({ item, collection }) => {
   }
 
   if (!activeTabUid) {
-    return <div>Something went wrong</div>;
+    return <div>出现问题</div>;
   }
 
   if (!focusedTab || !focusedTab.uid || !focusedTab.responsePaneTab) {
-    return <div className="pb-4 px-4">An error occurred!</div>;
+    return <div className="pb-4 px-4">发生错误！</div>;
   }
 
   const rightContent = !isLoading ? (

@@ -10,7 +10,7 @@ const EndpointItem = ({ endpoint, type, actions }) => {
         <span className="endpoint-path">{endpoint.path}</span>
         {endpoint.summary && <span className="endpoint-summary">{endpoint.summary}</span>}
         {endpoint.name && !endpoint.summary && <span className="endpoint-summary">{endpoint.name}</span>}
-        {endpoint.deprecated && <span className="deprecated-tag">deprecated</span>}
+        {endpoint.deprecated && <span className="deprecated-tag">已废弃</span>}
         {actions && <div className="endpoint-actions">{actions}</div>}
       </div>
     </div>

@@ -69,15 +69,15 @@ const OpenAPISyncTab = ({ collection }) => {
   })();
 
   const syncTabs = useMemo(() => [
-    { key: 'overview', label: 'Overview' },
+    { key: 'overview', label: '概览' },
     {
       key: 'collection-changes',
-      label: 'Collection Changes',
+      label: 'Collection 变更',
       indicator: collectionChangesCount > 0 ? <span className="tab-count">{collectionChangesCount}</span> : null
     },
     {
       key: 'spec-updates',
-      label: 'Spec Updates',
+      label: 'Spec 更新',
       indicator: specUpdatesCount > 0 ? <span className="tab-count">{specUpdatesCount}</span> : null
     }
   ], [collectionChangesCount, specUpdatesCount]);
@@ -132,13 +132,13 @@ const OpenAPISyncTab = ({ collection }) => {
                   onOpenSettings={() => setShowSettingsModal(true)}
                 />
                 <p className="beta-feedback-inline">
-                  OpenAPI Sync is in Beta — we'd love to hear your feedback and suggestions.{' '}
+                  OpenAPI Sync 处于 Beta 阶段 — 我们希望听到你的反馈和建议。{' '}
                   <button
                     type="button"
                     className="beta-feedback-link"
                     onClick={() => window?.ipcRenderer?.openExternal('https://github.com/usebruno/bruno/discussions/7401')}
                   >
-                    Share feedback
+                    分享反馈
                   </button>
                 </p>
               </div>

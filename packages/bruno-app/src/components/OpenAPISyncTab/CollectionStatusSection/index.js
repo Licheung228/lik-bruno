@@ -53,8 +53,8 @@ const CollectionStatusSection = ({
       collectionPath={collection.pathname}
       newSpec={spec}
       showDecisions={false}
-      diffLeftLabel="Last Synced Spec"
-      diffRightLabel="Current (in collection)"
+      diffLeftLabel="上次同步的 Spec"
+      diffRightLabel="当前（Collection 中）"
       swapDiffSides
       collectionUid={collection.uid}
       actions={actions}
@@ -70,7 +70,7 @@ const CollectionStatusSection = ({
     if (hasDrift) {
       return {
         variant: 'muted',
-        message: 'Collection has changes since last sync',
+        message: 'Collection 自上次同步后有变更',
         badges: { modifiedCount, missingCount, localOnlyCount },
         actions: ['revert-all']
       };
@@ -91,16 +91,16 @@ const CollectionStatusSection = ({
             </span>
             {bannerState.badges && (
               <span className="banner-details">
-                {bannerState.badges.modifiedCount > 0 && <StatusBadge status="warning" radius="full">{bannerState.badges.modifiedCount} modified</StatusBadge>}
-                {bannerState.badges.missingCount > 0 && <StatusBadge status="danger" radius="full">{bannerState.badges.missingCount} deleted</StatusBadge>}
-                {bannerState.badges.localOnlyCount > 0 && <StatusBadge status="muted" radius="full">{bannerState.badges.localOnlyCount} added</StatusBadge>}
+                {bannerState.badges.modifiedCount > 0 && <StatusBadge status="warning" radius="full">{bannerState.badges.modifiedCount} 已修改</StatusBadge>}
+                {bannerState.badges.missingCount > 0 && <StatusBadge status="danger" radius="full">{bannerState.badges.missingCount} 已删除</StatusBadge>}
+                {bannerState.badges.localOnlyCount > 0 && <StatusBadge status="muted" radius="full">{bannerState.badges.localOnlyCount} 已添加</StatusBadge>}
               </span>
             )}
           </div>
           {bannerState.actions.includes('revert-all') && (
             <div className="banner-actions">
               <Button size="sm" variant="ghost" color="danger" onClick={handleRevertAllChanges}>
-                Revert All to Spec
+                全部重置为 Spec
               </Button>
             </div>
           )}
@@ -110,15 +110,15 @@ const CollectionStatusSection = ({
       {hasDrift && (
         <div className="sync-info-notice mt-4">
           <IconInfoCircle size={14} className="sync-info-icon" />
-          <span><span className="whats-updated-title">What's tracked:</span> Changes to parameters, headers, body and auth compared to the synced spec. Your variables, scripts, tests, assertions, settings etc. are not tracked here.</span>
+          <span><span className="whats-updated-title">追踪内容：</span>相对于已同步 Spec 的参数、headers、body 和 auth 变更。你的变量、脚本、测试、断言、设置等不在追踪范围内。</span>
         </div>
       )}
 
       {hasDrift ? (
         <div className="mt-5">
-          {/* Modified in Collection */}
+          {/* Collection 中已修改 */}
           <EndpointChangeSection
-            title="Modified in Collection"
+            title="Collection 中已修改"
             type="modified"
             endpoints={collectionDrift.modified || []}
             expandableLayout
@@ -127,11 +127,11 @@ const CollectionStatusSection = ({
             renderItem={(endpoint, idx) =>
               renderDriftRow(endpoint, idx, (
                 <>
-                  <Button size="xs" variant="ghost" onClick={() => onOpenEndpoint(endpoint.id)} title="Open in tab" icon={<IconExternalLink size={14} />}>
-                    Open
+                  <Button size="xs" variant="ghost" onClick={() => onOpenEndpoint(endpoint.id)} title="在新标签页打开" icon={<IconExternalLink size={14} />}>
+                    打开
                   </Button>
-                  <Button size="xs" variant="ghost" onClick={() => handleResetEndpoint(endpoint)} title="Reset to spec" icon={<IconArrowBackUp size={14} />}>
-                    Reset
+                  <Button size="xs" variant="ghost" onClick={() => handleResetEndpoint(endpoint)} title="重置为 Spec" icon={<IconArrowBackUp size={14} />}>
+                    重置
                   </Button>
                 </>
               ))}
@@ -140,17 +140,17 @@ const CollectionStatusSection = ({
                 size="xs"
                 variant="outline"
                 onClick={handleResetAllModified}
-                title="Reset all modified endpoints to match the spec"
+                title="将所有已修改的 endpoint 重置为与 Spec 一致"
                 icon={<IconArrowBackUp size={14} />}
               >
-                Reset All
+                全部重置
               </Button>
             )}
           />
 
-          {/* Deleted from Collection */}
+          {/* Collection 中已删除 */}
           <EndpointChangeSection
-            title="Deleted from Collection"
+            title="Collection 中已删除"
             type="missing"
             endpoints={collectionDrift.missing || []}
             expandableLayout
@@ -158,8 +158,8 @@ const CollectionStatusSection = ({
             sectionKey="drift-missing"
             renderItem={(endpoint, idx) =>
               renderDriftRow(endpoint, idx, (
-                <Button size="xs" variant="ghost" onClick={() => handleAddMissingEndpoint(endpoint)} title="Restore to collection" icon={<IconPlus size={14} />}>
-                  Restore
+                <Button size="xs" variant="ghost" onClick={() => handleAddMissingEndpoint(endpoint)} title="恢复到 Collection" icon={<IconPlus size={14} />}>
+                  恢复
                 </Button>
               ))}
             actions={(
@@ -167,17 +167,17 @@ const CollectionStatusSection = ({
                 size="xs"
                 variant="outline"
                 onClick={handleAddAllMissing}
-                title="Add all deleted endpoints back to collection"
+                title="将所有已删除的 endpoint 添加回 Collection"
                 icon={<IconPlus size={14} />}
               >
-                Restore All
+                全部恢复
               </Button>
             )}
           />
 
-          {/* Added to Collection */}
+          {/* Collection 中已添加 */}
           <EndpointChangeSection
-            title="Added to Collection"
+            title="Collection 中已添加"
             type="local-only"
             endpoints={collectionDrift.localOnly || []}
             expandableLayout
@@ -186,11 +186,11 @@ const CollectionStatusSection = ({
             renderItem={(endpoint, idx) =>
               renderDriftRow(endpoint, idx, (
                 <>
-                  <Button size="xs" variant="ghost" onClick={() => onOpenEndpoint(endpoint.id)} title="Open in tab" icon={<IconExternalLink size={14} />}>
-                    Open
+                  <Button size="xs" variant="ghost" onClick={() => onOpenEndpoint(endpoint.id)} title="在新标签页打开" icon={<IconExternalLink size={14} />}>
+                    打开
                   </Button>
-                  <Button size="xs" variant="ghost" color="danger" onClick={() => handleDeleteEndpoint(endpoint)} title="Delete endpoint" icon={<IconTrash size={14} />}>
-                    Delete
+                  <Button size="xs" variant="ghost" color="danger" onClick={() => handleDeleteEndpoint(endpoint)} title="删除 endpoint" icon={<IconTrash size={14} />}>
+                    删除
                   </Button>
                 </>
               ))}
@@ -200,10 +200,10 @@ const CollectionStatusSection = ({
                 variant="outline"
                 color="danger"
                 onClick={handleDeleteAllLocalOnly}
-                title="Delete all locally added endpoints"
+                title="删除所有本地添加的 endpoint"
                 icon={<IconTrash size={14} />}
               >
-                Delete All
+                全部删除
               </Button>
             )}
           />
@@ -211,24 +211,24 @@ const CollectionStatusSection = ({
       ) : isLoading ? (
         <div className="sync-review-empty-state mt-5">
           <IconLoader2 size={40} className="empty-state-icon animate-spin" />
-          <h4>Checking for updates</h4>
-          <p>Comparing your collection with the last synced spec...</p>
+          <h4>检查更新中</h4>
+          <p>正在将你的 Collection 与上次同步的 Spec 进行比较...</p>
         </div>
       ) : !hasStoredSpec ? (
         <div className="sync-review-empty-state mt-5">
           <IconAlertTriangle size={40} className="empty-state-icon" />
-          <h4>{lastSyncDate ? 'Cannot track collection changes' : 'Waiting for initial sync'}</h4>
+          <h4>{lastSyncDate ? '无法追踪 Collection 变更' : '等待初始同步'}</h4>
           <p>{lastSyncDate
-            ? 'The last synced spec is missing. Go to the \'Spec Updates\' tab to restore it, or sync the collection if updates are available to track future changes.'
-            : 'Once you sync your collection with the spec, local changes will appear here.'}
+            ? '上次同步的 Spec 已丢失。前往"Spec 更新"标签页恢复，或在有可用更新时同步 Collection 以追踪后续变更。'
+            : 'Collection 与 Spec 同步后，本地变更将显示在此处。'}
           </p>
-          <Button variant="outline" size="sm" className="mt-4" onClick={() => onTabSelect('spec-updates')}>Go to Spec Updates</Button>
+          <Button variant="outline" size="sm" className="mt-4" onClick={() => onTabSelect('spec-updates')}>前往 Spec 更新</Button>
         </div>
       ) : (
         <div className="sync-review-empty-state mt-5">
           <IconCheck size={40} className="empty-state-icon" />
-          <h4>No changes in collection</h4>
-          <p>The collection endpoints match the last synced spec. Nothing to review.</p>
+          <h4>Collection 无变更</h4>
+          <p>Collection 中的 endpoint 与上次同步的 Spec 一致。无需审查。</p>
         </div>
       )}
       {/* Action confirmation modal */}
@@ -238,13 +238,13 @@ const CollectionStatusSection = ({
             <p className="confirm-message">{pendingAction.message}</p>
             <div className="confirm-actions">
               <Button variant="ghost" onClick={() => setPendingAction(null)}>
-                Cancel
+                取消
               </Button>
               <Button
                 color={pendingAction.type.includes('delete') ? 'danger' : 'primary'}
                 onClick={confirmPendingAction}
               >
-                Confirm
+                确认
               </Button>
             </div>
           </div>

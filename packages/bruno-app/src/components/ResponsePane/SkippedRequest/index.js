@@ -9,7 +9,7 @@ const SkippedRequest = () => {
         <IconCircleOff size={150} strokeWidth={1} />
       </div>
       <div className="flex mt-4 justify-center" style={{ fontSize: 25 }}>
-        Request skipped
+        请求已跳过
       </div>
     </StyledWrapper>
   );

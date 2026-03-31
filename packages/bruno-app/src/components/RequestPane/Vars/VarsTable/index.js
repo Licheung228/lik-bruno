@@ -50,7 +50,7 @@ const VarsTable = ({ item, collection, vars, varType }) => {
     if (key !== 'name') return null;
     if (!row.name || row.name.trim() === '') return null;
     if (!variableNameRegex.test(row.name)) {
-      return 'Variable contains invalid characters. Must only contain alphanumeric characters, "-", "_", "."';
+      return '变量包含无效字符，只能包含字母、数字、"-"、"_"、"."';
     }
     return null;
   }, []);
@@ -58,20 +58,20 @@ const VarsTable = ({ item, collection, vars, varType }) => {
   const columns = [
     {
       key: 'name',
-      name: 'Name',
+      name: '名称',
       isKeyField: true,
-      placeholder: 'Name',
+      placeholder: '名称',
       width: '35%'
     },
     {
       key: 'value',
-      name: varType === 'request' ? 'Value' : (
+      name: varType === 'request' ? '值' : (
         <div className="flex items-center">
-          <span>Expr</span>
-          <InfoTip className="tooltip-mod" content="You can write any valid JS expression here" infotipId={`request-${varType}-var`} />
+          <span>表达式</span>
+          <InfoTip className="tooltip-mod" content="可以在此编写任意有效的 JS 表达式" infotipId={`request-${varType}-var`} />
         </div>
       ),
-      placeholder: varType === 'request' ? 'Value' : 'Expr',
+      placeholder: varType === 'request' ? '值' : '表达式',
       render: ({ value, onChange }) => (
         <MultiLineEditor
           value={value || ''}
@@ -81,7 +81,7 @@ const VarsTable = ({ item, collection, vars, varType }) => {
           onRun={handleRun}
           collection={collection}
           item={item}
-          placeholder={!value ? (varType === 'request' ? 'Value' : 'Expr') : ''}
+          placeholder={!value ? (varType === 'request' ? '值' : '表达式') : ''}
         />
       )
     }

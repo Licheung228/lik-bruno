@@ -17,18 +17,18 @@ const DeleteCollection = ({ onClose, collectionUid, workspaceUid }) => {
 
   const onConfirm = async () => {
     if (!collection || !workspace) {
-      toast.error('Collection or workspace not found');
+      toast.error('未找到 Collection 或 Workspace');
       onClose();
       return;
     }
 
     try {
       await dispatch(removeCollectionFromWorkspaceAction(workspace.uid, collection.pathname, { deleteFiles: true }));
-      toast.success(`Deleted "${collection.name}" collection`);
+      toast.success(`已删除 "${collection.name}" Collection`);
       onClose();
     } catch (error) {
       console.error('Error deleting collection:', error);
-      toast.error(error.message || 'An error occurred while deleting the collection');
+      toast.error(error.message || '删除 Collection 时发生错误');
     }
   };
 
@@ -39,7 +39,7 @@ const DeleteCollection = ({ onClose, collectionUid, workspaceUid }) => {
   const customHeader = (
     <div className="flex items-center gap-2">
       <IconAlertTriangle size={18} strokeWidth={1.5} className="text-red-500" />
-      <span>Delete Collection</span>
+      <span>删除 Collection</span>
     </div>
   );
 
@@ -47,28 +47,28 @@ const DeleteCollection = ({ onClose, collectionUid, workspaceUid }) => {
     <StyledWrapper>
       <Modal
         size="sm"
-        title="Delete Collection"
+        title="删除 Collection"
         customHeader={customHeader}
-        confirmText="Delete"
-        cancelText="Cancel"
+        confirmText="删除"
+        cancelText="取消"
         confirmButtonColor="danger"
         confirmDisabled={!isConfirmed}
         handleConfirm={onConfirm}
         handleCancel={onClose}
       >
         <p className="modal-description">
-          Are you sure you want to permanently delete <strong>"{collection.name}"</strong>?
+          确定要永久删除 <strong>"{collection.name}"</strong> 吗？
         </p>
         <div className="collection-info-card">
           <div className="collection-name">{collection.name}</div>
           <div className="collection-path">{collection.pathname}</div>
         </div>
         <p className="warning-text">
-          This action cannot be undone. The collection files will be permanently deleted from disk.
+          此操作不可撤销。Collection 文件将从磁盘中永久删除。
         </p>
         <div className="delete-confirmation">
           <label htmlFor="delete-confirm-input">
-            Type <span className="delete-keyword">delete</span> to confirm
+            输入 <span className="delete-keyword">delete</span> 以确认
           </label>
           <input
             id="delete-confirm-input"

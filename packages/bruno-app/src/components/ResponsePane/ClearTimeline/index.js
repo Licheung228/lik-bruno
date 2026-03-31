@@ -16,8 +16,8 @@ const ClearTimeline = ({ collection, item }) => {
 
   return (
     <StyledWrapper className="flex items-center">
-      <button type="button" onClick={clearResponse} className="text-link hover:underline whitespace-nowrap" title="Clear Timeline">
-        Clear Timeline
+      <button type="button" onClick={clearResponse} className="text-link hover:underline whitespace-nowrap" title="清除时间线">
+        清除时间线
       </button>
     </StyledWrapper>
   );

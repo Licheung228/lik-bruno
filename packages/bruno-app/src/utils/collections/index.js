@@ -882,7 +882,7 @@ export const isItemAFolder = (item) => {
 };
 
 export const humanizeRequestBodyMode = (mode) => {
-  let label = 'No Body';
+  let label = '无 Body';
   switch (mode) {
     case 'json': {
       label = 'JSON';
@@ -901,7 +901,7 @@ export const humanizeRequestBodyMode = (mode) => {
       break;
     }
     case 'file': {
-      label = 'File / Binary';
+      label = '文件 / 二进制';
       break;
     }
     case 'formUrlEncoded': {
@@ -918,10 +918,10 @@ export const humanizeRequestBodyMode = (mode) => {
 };
 
 export const humanizeRequestAuthMode = (mode) => {
-  let label = 'No Auth';
+  let label = '无认证';
   switch (mode) {
     case 'inherit': {
-      label = 'Inherit';
+      label = '继承';
       break;
     }
     case 'awsv4': {
@@ -966,10 +966,10 @@ export const humanizeRequestAuthMode = (mode) => {
 };
 
 export const humanizeRequestAPIKeyPlacement = (placement) => {
-  let label = 'Header';
+  let label = '请求头';
   switch (placement) {
     case 'header': {
-      label = 'Header';
+      label = '请求头';
       break;
     }
     case 'queryparams': {
@@ -988,13 +988,13 @@ export const humanizeGrantType = (mode) => {
 
   switch (mode) {
     case 'password':
-      return 'Password Credentials';
+      return '密码凭证';
     case 'authorization_code':
-      return 'Authorization Code';
+      return '授权码';
     case 'client_credentials':
-      return 'Client Credentials';
+      return '客户端凭证';
     case 'implicit':
-      return 'Implicit';
+      return '隐式';
     default:
       return mode;
   }

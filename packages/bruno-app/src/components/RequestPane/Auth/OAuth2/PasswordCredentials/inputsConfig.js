@@ -5,11 +5,11 @@ const inputsConfig = [
   },
   {
     key: 'username',
-    label: 'Username'
+    label: '用户名'
   },
   {
     key: 'password',
-    label: 'Password',
+    label: '密码',
     isSecret: true
   },
   {

@@ -38,18 +38,18 @@ const RenameCollectionItem = ({ collectionUid, item, onClose }) => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .min(1, 'must be at least 1 character')
-        .max(255, 'must be 255 characters or less')
-        .required('name is required'),
+        .min(1, '至少需要 1 个字符')
+        .max(255, '最多 255 个字符')
+        .required('名称必填'),
       filename: Yup.string()
-        .min(1, 'must be at least 1 character')
-        .max(255, 'must be 255 characters or less')
-        .required('name is required')
+        .min(1, '至少需要 1 个字符')
+        .max(255, '最多 255 个字符')
+        .required('名称必填')
         .test('is-valid-name', function (value) {
           const isValid = validateName(value);
           return isValid ? true : this.createError({ message: validateNameError(value) });
         })
-        .test('not-reserved', `The file names "collection" and "folder" are reserved in bruno`, (value) => !['collection', 'folder'].includes(value))
+        .test('not-reserved', `Bruno 中 "collection" 和 "folder" 文件名是保留的`, (value) => !['collection', 'folder'].includes(value))
     }),
     onSubmit: async (values) => {
       // if there is unsaved changes in the request,
@@ -76,7 +76,7 @@ const RenameCollectionItem = ({ collectionUid, item, onClose }) => {
         }
         onClose();
       } catch (error) {
-        toast.error(error.message || 'An error occurred while renaming');
+        toast.error(error.message || '重命名时发生错误');
       }
     }
   });
@@ -94,7 +94,7 @@ const RenameCollectionItem = ({ collectionUid, item, onClose }) => {
           className="btn-advanced"
           type="button"
         >
-          Options
+          选项
         </button>
         <IconCaretDown className="caret ml-1" size={14} strokeWidth={2} />
       </div>
@@ -106,14 +106,14 @@ const RenameCollectionItem = ({ collectionUid, item, onClose }) => {
       <StyledWrapper>
         <Modal
           size="md"
-          title={`Rename ${isFolder ? 'Folder' : 'Request'}`}
+          title={`重命名 ${isFolder ? 'Folder' : 'Request'}`}
           handleCancel={onClose}
           hideFooter
         >
           <form className="bruno-form" onSubmit={formik.handleSubmit}>
             <div className="flex flex-col mt-2">
               <label htmlFor="name" className="block font-medium">
-                {isFolder ? 'Folder' : 'Request'} Name
+                {isFolder ? 'Folder' : 'Request'} 名称
               </label>
               <input
                 id="collection-item-name"
@@ -138,20 +138,20 @@ const RenameCollectionItem = ({ collectionUid, item, onClose }) => {
               <div className="mt-4">
                 <div className="flex items-center justify-between">
                   <label htmlFor="filename" className="flex items-center font-medium">
-                    {isFolder ? 'Folder' : 'File'} Name <small className="font-normal text-muted ml-1">(on filesystem)</small>
+                    {isFolder ? 'Folder' : '文件'}名称 <small className="font-normal text-muted ml-1">(文件系统)</small>
                     { isFolder ? (
                       <Help width="300">
                         <p>
-                          You can choose to save the folder as a different name on your file system versus what is displayed in the app.
+                          您可以选择在文件系统上保存的文件夹名称与应用中显示的名称不同。
                         </p>
                       </Help>
                     ) : (
                       <Help width="300">
                         <p>
-                          Bruno saves each request as a file in your collection's folder.
+                          Bruno 将每个 Request 保存为 Collection 文件夹中的文件。
                         </p>
                         <p className="mt-2">
-                          You can choose a file name different from your request's name or one compatible with filesystem rules.
+                          您可以选择与 Request 名称不同的文件名，或选择符合文件系统规则的名称。
                         </p>
                       </Help>
                     )}
@@ -179,7 +179,7 @@ const RenameCollectionItem = ({ collectionUid, item, onClose }) => {
                       id="file-name"
                       type="text"
                       name="filename"
-                      placeholder={isFolder ? 'Folder Name' : 'File Name'}
+                      placeholder={isFolder ? 'Folder 名称' : '文件名'}
                       className="!pr-10 block textbox mt-2 w-full"
                       autoComplete="off"
                       autoCorrect="off"
@@ -213,16 +213,16 @@ const RenameCollectionItem = ({ collectionUid, item, onClose }) => {
                       toggleShowFilesystemName(!showFilesystemName);
                     }}
                   >
-                    {showFilesystemName ? 'Hide Filesystem Name' : 'Show Filesystem Name'}
+                    {showFilesystemName ? '隐藏文件名' : '显示文件名'}
                   </div>
                 </Dropdown>
               </div>
               <div className="flex justify-end">
                 <Button type="button" color="secondary" variant="ghost" onClick={onClose} className="mr-2">
-                  Cancel
+                  取消
                 </Button>
                 <Button type="submit">
-                  Rename
+                  重命名
                 </Button>
               </div>
             </div>

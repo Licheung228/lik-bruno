@@ -62,7 +62,7 @@ const TestSection = ({
             : <IconChevronRight size={18} stroke={1.5} />}
         </span>
         <span className="flex-grow">
-          {title} ({results.length}), Passed: {passedResults.length}, Failed: {failedResults.length}
+          {title} ({results.length})，通过: {passedResults.length}，失败: {failedResults.length}
         </span>
       </div>
       {isExpanded && (
@@ -108,13 +108,13 @@ const TestResults = ({ results, assertionResults, preRequestTestResults, postRes
   };
 
   if (!results.length && !assertionResults.length && !preRequestTestResults.length && !postResponseTestResults.length) {
-    return <div>No tests found</div>;
+    return <div>未找到测试</div>;
   }
 
   return (
     <StyledWrapper className="flex flex-col">
       <TestSection
-        title="Pre-Request Tests"
+        title="请求前测试"
         results={preRequestTestResults}
         isExpanded={expandedSections.preRequest}
         onToggle={() => toggleSection('preRequest')}
@@ -122,7 +122,7 @@ const TestResults = ({ results, assertionResults, preRequestTestResults, postRes
       />
 
       <TestSection
-        title="Post-Response Tests"
+        title="响应后测试"
         results={postResponseTestResults}
         isExpanded={expandedSections.postResponse}
         onToggle={() => toggleSection('postResponse')}
@@ -130,7 +130,7 @@ const TestResults = ({ results, assertionResults, preRequestTestResults, postRes
       />
 
       <TestSection
-        title="Tests"
+        title="测试"
         results={results}
         isExpanded={expandedSections.tests}
         onToggle={() => toggleSection('tests')}
@@ -138,7 +138,7 @@ const TestResults = ({ results, assertionResults, preRequestTestResults, postRes
       />
 
       <TestSection
-        title="Assertions"
+        title="断言"
         results={assertionResults}
         isExpanded={expandedSections.assertions}
         onToggle={() => toggleSection('assertions')}
