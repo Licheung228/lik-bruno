@@ -4,12 +4,11 @@ const path = require('path');
 const electron_notarize = require('electron-notarize');
 
 const notarize = async function (params) {
-  return;
   if (process.platform !== 'darwin') {
     return;
   }
 
-  let appId = 'com.usebruno.app';
+  let appId = 'com.likusebruno.app';
 
   let appPath = path.join(params.appOutDir, `${params.packager.appInfo.productFilename}.app`);
   if (!fs.existsSync(appPath)) {
@@ -23,9 +22,9 @@ const notarize = async function (params) {
     await electron_notarize.notarize({
       appBundleId: appId,
       appPath: appPath,
-      appleId: process.env.APPLE_ID,
-      appleIdPassword: process.env.APPLE_ID_PASSWORD,
-      ascProvider: 'W7LPPWA48L'
+      appleId: process.env.APPLE_ID, // 开发者邮箱
+      appleIdPassword: process.env.APPLE_ID_PASSWORD, // APP专用密码
+      ascProvider: process.env.ASC_PROVIDER // team id
     });
   } catch (error) {
     console.error(error);

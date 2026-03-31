@@ -1,8 +1,8 @@
 require('dotenv').config({ path: process.env.DOTENV_PATH });
 
 const config = {
-  appId: 'com.usebruno.app',
-  productName: 'Bruno',
+  appId: 'com.likusebruno.app',
+  productName: 'LikBruno',
   electronVersion: '37.6.1',
   directories: {
     buildResources: 'resources',
@@ -15,7 +15,7 @@ const config = {
     }
   ],
   files: ['**/*'],
-  // afterSign: 'notarize.js',
+  afterSign: 'notarize.js',
   mac: {
     artifactName: '${name}_${version}_${arch}_${os}.${ext}',
     category: 'public.app-category.developer-tools',
@@ -34,8 +34,8 @@ const config = {
       }
     ],
     icon: 'resources/icons/mac/icon.icns',
-    hardenedRuntime: true,
-    identity: null, // 'Anoop MD (W7LPPWA48L)',
+    hardenedRuntime: false,
+    identity: process.env.APPLE_IDENTIFY,
     entitlements: 'resources/entitlements.mac.plist',
     entitlementsInherit: 'resources/entitlements.mac.plist',
     notarize: false,
