@@ -4,6 +4,7 @@ const path = require('path');
 const electron_notarize = require('electron-notarize');
 
 const notarize = async function (params) {
+  return;
   if (process.platform !== 'darwin') {
     return;
   }

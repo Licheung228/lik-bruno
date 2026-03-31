@@ -1,4 +1,7 @@
 #!/bin/bash
+set -euo pipefail
+
+npm run build:web
 
 # Remove out directory
 rm -rf packages/bruno-electron/out
@@ -10,7 +13,12 @@ rm -rf packages/bruno-electron/web
 mkdir packages/bruno-electron/web
 
 # Copy build
-cp -r packages/bruno-app/dist/* packages/bruno-electron/web
+cp -r packages/bruno-app/dist/. packages/bruno-electron/web
+
+if [ ! -f packages/bruno-electron/web/index.html ]; then
+  echo "Error: packages/bruno-electron/web/index.html not found after copy"
+  exit 1
+fi
 
 
 # Update static paths

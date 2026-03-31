@@ -25,10 +25,10 @@ async function copyFolderIfExists(srcPath, destPath) {
       await fs.copy(srcPath, destPath);
       console.log(`${srcPath} has been successfully copied.`);
     } else {
-      console.log(`${srcPath} was not copied as it does not exist.`);
+      throw new Error(`${srcPath} does not exist. Please build web assets before packaging.`);
     }
   } catch (err) {
-    console.error(`Error while checking the existence of ${srcPath}: ${err}`);
+    throw new Error(`Error while copying ${srcPath}: ${err.message || err}`);
   }
 }
 
@@ -68,6 +68,8 @@ async function execCommandWithOutput(command) {
 
 async function main() {
   try {
+    await execCommandWithOutput('npm run build:web');
+
     // Remove out directory
     await deleteFileIfExists('packages/bruno-electron/out');
 
@@ -80,6 +82,11 @@ async function main() {
 
     // Copy build
     await copyFolderIfExists('packages/bruno-app/dist', 'packages/bruno-electron/web');
+
+    const hasIndexHtml = await fs.pathExists('packages/bruno-electron/web/index.html');
+    if (!hasIndexHtml) {
+      throw new Error('packages/bruno-electron/web/index.html not found after copy.');
+    }
 
     // Update static paths
     const files = await fs.readdir('packages/bruno-electron/web');
@@ -126,6 +133,7 @@ async function main() {
     await execCommandWithOutput(`npm run dist:${osArg} --workspace=packages/bruno-electron`);
   } catch (error) {
     console.error('An error occurred:', error);
+    process.exit(1);
   }
 }
 
