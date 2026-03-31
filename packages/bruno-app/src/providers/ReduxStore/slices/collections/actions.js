@@ -3129,6 +3129,87 @@ export const cloneGitRepository = (data) => (dispatch, getState) => {
   });
 };
 
+const getCollectionPathForGitAction = (state, collectionUid) => {
+  const collection = findCollectionByUid(state.collections.collections, collectionUid);
+  if (!collection) {
+    throw new Error('Collection not found');
+  }
+
+  return collection.pathname;
+};
+
+export const getCollectionGitOverview = (collectionUid) => (dispatch, getState) => {
+  const { ipcRenderer } = window;
+
+  return new Promise((resolve, reject) => {
+    try {
+      const state = getState();
+      const collectionPath = getCollectionPathForGitAction(state, collectionUid);
+
+      ipcRenderer
+        .invoke('renderer:get-collection-git-overview', { collectionPath })
+        .then(resolve)
+        .catch(reject);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+export const gitFetch = (collectionUid, processUid = uuid()) => (dispatch, getState) => {
+  const { ipcRenderer } = window;
+
+  return new Promise((resolve, reject) => {
+    try {
+      const state = getState();
+      const collectionPath = getCollectionPathForGitAction(state, collectionUid);
+
+      ipcRenderer
+        .invoke('renderer:git-fetch', { collectionPath, processUid })
+        .then(resolve)
+        .catch(reject);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+export const gitPull = (collectionUid, processUid = uuid()) => (dispatch, getState) => {
+  const { ipcRenderer } = window;
+
+  return new Promise((resolve, reject) => {
+    try {
+      const state = getState();
+      const collectionPath = getCollectionPathForGitAction(state, collectionUid);
+
+      ipcRenderer
+        .invoke('renderer:git-pull', { collectionPath, processUid, strategy: '--no-rebase' })
+        .then(resolve)
+        .catch(reject);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+export const gitPush = (collectionUid, processUid = uuid()) => (dispatch, getState) => {
+  const { ipcRenderer } = window;
+
+  return new Promise((resolve, reject) => {
+    try {
+      const state = getState();
+      const collectionPath = getCollectionPathForGitAction(state, collectionUid);
+
+      ipcRenderer
+        .invoke('renderer:git-push', { collectionPath, processUid })
+        .then(resolve)
+        .catch(reject);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
 export const scanForBrunoFiles = (dir) => (dispatch, getState) => {
   const { ipcRenderer } = window;
   return new Promise((resolve, reject) => {

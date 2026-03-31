@@ -20,20 +20,36 @@ import {
   IconSettings,
   IconTerminal2,
   IconFolder,
-  IconBook
+  IconBook,
+  IconGitCompare
 } from '@tabler/icons';
 import OpenAPISyncIcon from 'components/Icons/OpenAPISync';
-import { toggleCollection, collapseFullCollection } from 'providers/ReduxStore/slices/collections';
-import { mountCollection, moveCollectionAndPersist, handleCollectionItemDrop, pasteItem, showInFolder, saveCollectionSecurityConfig } from 'providers/ReduxStore/slices/collections/actions';
+import {
+  toggleCollection,
+  collapseFullCollection
+} from 'providers/ReduxStore/slices/collections';
+import {
+  mountCollection,
+  moveCollectionAndPersist,
+  handleCollectionItemDrop,
+  pasteItem,
+  showInFolder,
+  saveCollectionSecurityConfig
+} from 'providers/ReduxStore/slices/collections/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTab, makeTabPermanent } from 'providers/ReduxStore/slices/tabs';
 import toast from 'react-hot-toast';
 import NewRequest from 'components/Sidebar/NewRequest';
 import NewFolder from 'components/Sidebar/NewFolder';
+import GitAction from 'components/Sidebar/GitAction';
 import CollectionItem from './CollectionItem';
 import RemoveCollection from './RemoveCollection';
 import { doesCollectionHaveItemsMatchingSearchText } from 'utils/collections/search';
-import { isItemAFolder, isItemARequest, areItemsLoading } from 'utils/collections';
+import {
+  isItemAFolder,
+  isItemARequest,
+  areItemsLoading
+} from 'utils/collections';
 import { isTabForItemActive } from 'src/selectors/tab';
 
 import RenameCollection from './RenameCollection';
@@ -61,12 +77,18 @@ const Collection = ({ collection, searchText }) => {
   const isOpenAPISyncEnabled = useBetaFeature(BETA_FEATURES.OPENAPI_SYNC);
   const { dropdownContainerRef } = useSidebarAccordion();
   const [showNewFolderModal, setShowNewFolderModal] = useState(false);
+  const [showGitActiongModal, setGitActiongModal] = useState(false);
   const [showNewRequestModal, setShowNewRequestModal] = useState(false);
-  const [showRenameCollectionModal, setShowRenameCollectionModal] = useState(false);
-  const [showCloneCollectionModalOpen, setShowCloneCollectionModalOpen] = useState(false);
-  const [showShareCollectionModal, setShowShareCollectionModal] = useState(false);
-  const [showGenerateDocumentationModal, setShowGenerateDocumentationModal] = useState(false);
-  const [showRemoveCollectionModal, setShowRemoveCollectionModal] = useState(false);
+  const [showRenameCollectionModal, setShowRenameCollectionModal]
+    = useState(false);
+  const [showCloneCollectionModalOpen, setShowCloneCollectionModalOpen]
+    = useState(false);
+  const [showShareCollectionModal, setShowShareCollectionModal]
+    = useState(false);
+  const [showGenerateDocumentationModal, setShowGenerateDocumentationModal]
+    = useState(false);
+  const [showRemoveCollectionModal, setShowRemoveCollectionModal]
+    = useState(false);
   const [dropType, setDropType] = useState(null);
   const [isKeyboardFocused, setIsKeyboardFocused] = useState(false);
   const [showEmptyState, setShowEmptyState] = useState(false);
@@ -76,7 +98,9 @@ const Collection = ({ collection, searchText }) => {
   // Only count persisted items; transients don't affect empty state
   const itemCount = collection.items?.filter((i) => !i.isTransient).length || 0;
 
-  const isCollectionFocused = useSelector(isTabForItemActive({ itemUid: collection.uid }));
+  const isCollectionFocused = useSelector(
+    isTabForItemActive({ itemUid: collection.uid })
+  );
   const { hasCopiedItems } = useSelector((state) => state.app.clipboard);
   const menuDropdownRef = useRef(null);
 
@@ -106,11 +130,13 @@ const Collection = ({ collection, searchText }) => {
     if (collection.mountStatus === 'mounted') {
       return;
     }
-    dispatch(mountCollection({
-      collectionUid: collection.uid,
-      collectionPathname: collection.pathname,
-      brunoConfig: collection.brunoConfig
-    }));
+    dispatch(
+      mountCollection({
+        collectionUid: collection.uid,
+        collectionPathname: collection.pathname,
+        brunoConfig: collection.brunoConfig
+      })
+    );
   };
 
   const hasSearchText = searchText && searchText?.trim()?.length;
@@ -123,7 +149,9 @@ const Collection = ({ collection, searchText }) => {
   const handleClick = (event) => {
     if (event.detail != 1) return;
     // Check if the click came from the chevron icon
-    const isChevronClick = event.target.closest('svg')?.classList.contains('chevron-icon');
+    const isChevronClick = event.target
+      .closest('svg')
+      ?.classList.contains('chevron-icon');
     setTimeout(scrollToTheActiveTab, 50);
 
     ensureCollectionIsMounted();
@@ -132,9 +160,11 @@ const Collection = ({ collection, searchText }) => {
       dispatch(toggleCollection(collection.uid));
       // Set default jsSandboxMode to 'safe' if not present and save to disk
       if (!collection.securityConfig?.jsSandboxMode) {
-        dispatch(saveCollectionSecurityConfig(collection.uid, {
-          jsSandboxMode: 'safe'
-        }));
+        dispatch(
+          saveCollectionSecurityConfig(collection.uid, {
+            jsSandboxMode: 'safe'
+          })
+        );
       }
     }
 
@@ -198,14 +228,20 @@ const Collection = ({ collection, searchText }) => {
         toast.success('Item pasted successfully');
       })
       .catch((err) => {
-        toast.error(err ? err.message : 'An error occurred while pasting the item');
+        toast.error(
+          err
+            ? err.message
+            : 'An error occurred while pasting the item'
+        );
       });
   };
 
   // Keyboard shortcuts handler for collection
   const handleKeyDown = (e) => {
     // Detect Mac by checking both metaKey and platform
-    const isMac = navigator.userAgent?.includes('Mac') || navigator.platform?.startsWith('Mac');
+    const isMac
+      = navigator.userAgent?.includes('Mac')
+        || navigator.platform?.startsWith('Mac');
     const isModifierPressed = isMac ? e.metaKey : e.ctrlKey;
 
     if (isModifierPressed && e.key.toLowerCase() === 'v') {
@@ -253,9 +289,21 @@ const Collection = ({ collection, searchText }) => {
     drop: (draggedItem, monitor) => {
       const itemType = monitor.getItemType();
       if (isCollectionItem(itemType)) {
-        dispatch(handleCollectionItemDrop({ targetItem: collection, draggedItem, dropType: 'inside', collectionUid: collection.uid }));
+        dispatch(
+          handleCollectionItemDrop({
+            targetItem: collection,
+            draggedItem,
+            dropType: 'inside',
+            collectionUid: collection.uid
+          })
+        );
       } else {
-        dispatch(moveCollectionAndPersist({ draggedItem, targetItem: collection }));
+        dispatch(
+          moveCollectionAndPersist({
+            draggedItem,
+            targetItem: collection
+          })
+        );
       }
       setDropType(null);
     },
@@ -274,7 +322,10 @@ const Collection = ({ collection, searchText }) => {
   useEffect(() => {
     if (isCollectionFocused && collectionRef.current) {
       try {
-        collectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        collectionRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest'
+        });
       } catch (err) {
         // ignore scroll errors
       }
@@ -292,33 +343,50 @@ const Collection = ({ collection, searchText }) => {
       return;
     }
 
-    const timer = setTimeout(() => setShowEmptyState(true), EMPTY_STATE_DELAY_MS);
+    const timer = setTimeout(
+      () => setShowEmptyState(true),
+      EMPTY_STATE_DELAY_MS
+    );
     return () => clearTimeout(timer);
   }, [itemCount, isLoading, collection.mountStatus]);
 
   if (searchText && searchText.length) {
-    if (!doesCollectionHaveItemsMatchingSearchText(collection, searchText)) {
+    if (
+      !doesCollectionHaveItemsMatchingSearchText(collection, searchText)
+    ) {
       return null;
     }
   }
 
-  const collectionRowClassName = classnames('flex py-1 collection-name items-center', {
-    'item-hovered': isOver && dropType === 'adjacent', // For collection-to-collection moves (show line)
-    'drop-target': isOver && dropType === 'inside', // For collection-item drops (highlight full area)
-    'collection-focused-in-tab': isCollectionFocused && !isKeyboardFocused,
-    'collection-keyboard-focused': isKeyboardFocused
-  });
+  const collectionRowClassName = classnames(
+    'flex py-1 collection-name items-center',
+    {
+      'item-hovered': isOver && dropType === 'adjacent', // For collection-to-collection moves (show line)
+      'drop-target': isOver && dropType === 'inside', // For collection-item drops (highlight full area)
+      'collection-focused-in-tab':
+                isCollectionFocused && !isKeyboardFocused,
+      'collection-keyboard-focused': isKeyboardFocused
+    }
+  );
 
   // we need to sort request items by seq property
   const sortItemsBySequence = (items = []) => {
     return items.sort((a, b) => a.seq - b.seq);
   };
 
-  const requestItems = sortItemsBySequence(filter(collection.items, (i) => isItemARequest(i) && !i.isTransient));
-  const folderItems = sortByNameThenSequence(filter(collection.items, (i) => isItemAFolder(i) && !i.isTransient));
+  const requestItems = sortItemsBySequence(
+    filter(collection.items, (i) => isItemARequest(i) && !i.isTransient)
+  );
+  const folderItems = sortByNameThenSequence(
+    filter(collection.items, (i) => isItemAFolder(i) && !i.isTransient)
+  );
   const showEmptyCollectionMessage = showEmptyState && !hasSearchText;
 
-  const emptyStateMenuItems = createEmptyStateMenuItems({ dispatch, collection, itemUid: null });
+  const emptyStateMenuItems = createEmptyStateMenuItems({
+    dispatch,
+    collection,
+    itemUid: null
+  });
 
   const menuItems = [
     {
@@ -357,13 +425,21 @@ const Collection = ({ collection, searchText }) => {
         setShowCloneCollectionModalOpen(true);
       }
     },
-    ...(isOpenAPISyncEnabled ? [{
-      id: 'sync-openapi',
-      leftSection: OpenAPISyncIcon,
-      label: 'OpenAPI',
-      rightSection: <StatusBadge status="info" size="xs">Beta</StatusBadge>,
-      onClick: openOpenAPISyncTab
-    }] : []),
+    ...(isOpenAPISyncEnabled
+      ? [
+          {
+            id: 'sync-openapi',
+            leftSection: OpenAPISyncIcon,
+            label: 'OpenAPI',
+            rightSection: (
+              <StatusBadge status="info" size="xs">
+                Beta
+              </StatusBadge>
+            ),
+            onClick: openOpenAPISyncTab
+          }
+        ]
+      : []),
     ...(hasCopiedItems
       ? [
           {
@@ -413,6 +489,15 @@ const Collection = ({ collection, searchText }) => {
       onClick: handleShowInFolder
     },
     {
+      id: 'git-actiongs',
+      leftSection: IconGitCompare,
+      label: 'Git Actions',
+      onClick: () => {
+        console.log('%c Mark 🔸>>>', 'color: red;', 123);
+        setGitActiongModal(true);
+      }
+    },
+    {
       id: 'divider-1',
       type: 'divider'
     },
@@ -442,23 +527,56 @@ const Collection = ({ collection, searchText }) => {
   ];
 
   return (
-    <StyledWrapper className="flex flex-col" id={`collection-${collection.name.replace(/\s+/g, '-').toLowerCase()}`}>
-      {showNewRequestModal && <NewRequest collectionUid={collection.uid} onClose={() => setShowNewRequestModal(false)} />}
-      {showNewFolderModal && <NewFolder collectionUid={collection.uid} onClose={() => setShowNewFolderModal(false)} />}
+    <StyledWrapper
+      className="flex flex-col"
+      id={`collection-${collection.name
+        .replace(/\s+/g, '-')
+        .toLowerCase()}`}
+    >
+      {showNewRequestModal && (
+        <NewRequest
+          collectionUid={collection.uid}
+          onClose={() => setShowNewRequestModal(false)}
+        />
+      )}
+      {showNewFolderModal && (
+        <NewFolder
+          collectionUid={collection.uid}
+          onClose={() => setShowNewFolderModal(false)}
+        />
+      )}
+      {showGitActiongModal && (
+        <GitAction collectionUid={collection.uid} onClose={() => setGitActiongModal(false)} />
+      )}
       {showRenameCollectionModal && (
-        <RenameCollection collectionUid={collection.uid} onClose={() => setShowRenameCollectionModal(false)} />
+        <RenameCollection
+          collectionUid={collection.uid}
+          onClose={() => setShowRenameCollectionModal(false)}
+        />
       )}
       {showRemoveCollectionModal && (
-        <RemoveCollection collectionUid={collection.uid} onClose={() => setShowRemoveCollectionModal(false)} />
+        <RemoveCollection
+          collectionUid={collection.uid}
+          onClose={() => setShowRemoveCollectionModal(false)}
+        />
       )}
       {showShareCollectionModal && (
-        <ShareCollection collectionUid={collection.uid} onClose={() => setShowShareCollectionModal(false)} />
+        <ShareCollection
+          collectionUid={collection.uid}
+          onClose={() => setShowShareCollectionModal(false)}
+        />
       )}
       {showGenerateDocumentationModal && (
-        <GenerateDocumentation collectionUid={collection.uid} onClose={() => setShowGenerateDocumentationModal(false)} />
+        <GenerateDocumentation
+          collectionUid={collection.uid}
+          onClose={() => setShowGenerateDocumentationModal(false)}
+        />
       )}
       {showCloneCollectionModalOpen && (
-        <CloneCollection collectionUid={collection.uid} onClose={() => setShowCloneCollectionModalOpen(false)} />
+        <CloneCollection
+          collectionUid={collection.uid}
+          onClose={() => setShowCloneCollectionModalOpen(false)}
+        />
       )}
       <CollectionItemDragPreview />
       <div
@@ -484,15 +602,29 @@ const Collection = ({ collection, searchText }) => {
               size={16}
               strokeWidth={2}
               className={`chevron-icon ${iconClassName}`}
-              style={{ width: 16, minWidth: 16, color: 'rgb(160 160 160)' }}
+              style={{
+                width: 16,
+                minWidth: 16,
+                color: 'rgb(160 160 160)'
+              }}
               onClick={handleCollectionCollapse}
               onDoubleClick={handleCollectionDoubleClick}
             />
           </ActionIcon>
-          <div className="ml-1 w-full" id="sidebar-collection-name" title={collection.name}>
+          <div
+            className="ml-1 w-full"
+            id="sidebar-collection-name"
+            title={collection.name}
+          >
             {collection.name}
           </div>
-          {isLoading ? <IconLoader2 className="animate-spin mx-1" size={18} strokeWidth={1.5} /> : null}
+          {isLoading ? (
+            <IconLoader2
+              className="animate-spin mx-1"
+              size={18}
+              strokeWidth={1.5}
+            />
+          ) : null}
         </div>
         <div>
           <div className="pr-2">
@@ -500,7 +632,9 @@ const Collection = ({ collection, searchText }) => {
               ref={menuDropdownRef}
               items={menuItems}
               placement="bottom-start"
-              appendTo={dropdownContainerRef?.current || document.body}
+              appendTo={
+                dropdownContainerRef?.current || document.body
+              }
               popperOptions={{ strategy: 'fixed' }}
               data-testid="collection-actions"
             >
@@ -515,24 +649,52 @@ const Collection = ({ collection, searchText }) => {
         {!collectionIsCollapsed ? (
           <div>
             {folderItems?.map?.((i) => {
-              return <CollectionItem key={i.uid} item={i} collectionUid={collection.uid} collectionPathname={collection.pathname} searchText={searchText} />;
+              return (
+                <CollectionItem
+                  key={i.uid}
+                  item={i}
+                  collectionUid={collection.uid}
+                  collectionPathname={collection.pathname}
+                  searchText={searchText}
+                />
+              );
             })}
             {requestItems?.map?.((i) => {
-              return <CollectionItem key={i.uid} item={i} collectionUid={collection.uid} collectionPathname={collection.pathname} searchText={searchText} />;
+              return (
+                <CollectionItem
+                  key={i.uid}
+                  item={i}
+                  collectionUid={collection.uid}
+                  collectionPathname={collection.pathname}
+                  searchText={searchText}
+                />
+              );
             })}
             {showEmptyCollectionMessage ? (
               <div className="empty-collection-message">
-                <div className="indent-block" style={{ width: 16, minWidth: 16, height: '100%' }}>
-                  &nbsp;
+                <div
+                  className="indent-block"
+                  style={{
+                    width: 16,
+                    minWidth: 16,
+                    height: '100%'
+                  }}
+                >
+                                    &nbsp;
                 </div>
                 <div style={{ paddingLeft: 8 }}>
                   <MenuDropdown
                     items={emptyStateMenuItems}
                     placement="bottom-start"
-                    appendTo={dropdownContainerRef?.current || document.body}
+                    appendTo={
+                      dropdownContainerRef?.current
+                      || document.body
+                    }
                     popperOptions={{ strategy: 'fixed' }}
                   >
-                    <button className="ml-1 add-request-link">+ Add request</button>
+                    <button className="ml-1 add-request-link">
+                      + Add request
+                    </button>
                   </MenuDropdown>
                 </div>
               </div>

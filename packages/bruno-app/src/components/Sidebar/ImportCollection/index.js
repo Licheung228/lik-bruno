@@ -37,7 +37,13 @@ const ImportCollection = ({ onClose, handleSubmit }) => {
   }
 
   return (
-    <Modal size="md" title="Import Collection" hideFooter={true} handleCancel={onClose} dataTestId="import-collection-modal">
+    <Modal
+      size="md"
+      title="Import Collection"
+      hideFooter={true}
+      handleCancel={onClose}
+      dataTestId="import-collection-modal"
+    >
       <StyledWrapper className="flex flex-col h-full w-[600px] max-w-[600px]">
         <div className="flex w-full mb-6">
           <div className="flex justify-start w-full tabs">
@@ -46,7 +52,11 @@ const ImportCollection = ({ onClose, handleSubmit }) => {
               onClick={handleTabSelect(IMPORT_TABS.FILE)}
               data-testid="file-tab"
             >
-              <IconFileImport size={18} strokeWidth={1.5} className="mr-2" />
+              <IconFileImport
+                size={18}
+                strokeWidth={1.5}
+                className="mr-2"
+              />
               File
             </div>
             <div
@@ -54,15 +64,23 @@ const ImportCollection = ({ onClose, handleSubmit }) => {
               onClick={handleTabSelect(IMPORT_TABS.GITHUB)}
               data-testid="github-tab"
             >
-              <IconBrandGit size={18} strokeWidth={1.5} className="mr-2" />
-              Git Repository
+              <IconBrandGit
+                size={18}
+                strokeWidth={1.5}
+                className="mr-2"
+              />
+              Git 仓库导入
             </div>
             <div
               className={getTabClassname(IMPORT_TABS.URL)}
               onClick={handleTabSelect(IMPORT_TABS.URL)}
               data-testid="url-tab"
             >
-              <IconUnlink size={18} strokeWidth={1.5} className="mr-2" />
+              <IconUnlink
+                size={18}
+                strokeWidth={1.5}
+                className="mr-2"
+              />
               URL
             </div>
           </div>
